@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
+import {sortedType} from '../App';
 
-type TaskType = {
+export type TaskType = {
     id: number;
     title: string;
     isDone: boolean;
 };
 
-export type sortedType = 'All' | 'Active' | 'Completed';
 
 type PropsType = {
     title: string;
     tasks: Array<TaskType>;
-    removeTask: (taskId: number) => void;
     setTasks: (tasks: Array<TaskType>) => void; // Добавляем функцию setTasks, обновляет список задач - пропсы для передачи значений в App, new task
-    setSort: (value: sortedType) => void;
-    currentSort: sortedType; // Добавить проп currentSort
+    removeTask: (taskId: number) => void;
+    changeSort: (value: sortedType)=>void
 };
 
 export function Todolist(props: PropsType) {
@@ -37,18 +36,6 @@ export function Todolist(props: PropsType) {
         }
     };
 
-    // обработчик события
-    const handleSort = (value: sortedType) => {
-        props.setSort(value); // Вызов функции setSort из пропсов
-    };
-
-    let sortedTasks = props.tasks; // задачи по умолчанию без сортировки
-    if (props.currentSort === 'Active') {
-        sortedTasks = props.tasks.filter((task) => !task.isDone);
-    } else if (props.currentSort === 'Completed') {
-        sortedTasks = props.tasks.filter((task) => task.isDone);
-    }
-
 
     return (
         <div>
@@ -62,7 +49,7 @@ export function Todolist(props: PropsType) {
                 <button onClick={addTask}>+</button>
             </div>
             <ul>
-                {sortedTasks.map((t, index) => {
+                {props.tasks.map((t, index) => {
                     return (
                         <li key={t.id}>
                             <input type="checkbox" checked={t.isDone} />
@@ -79,9 +66,9 @@ export function Todolist(props: PropsType) {
                 })}
             </ul>
             <div>
-                <button onClick={() => handleSort('All')}>All</button>
-                <button onClick={() => handleSort('Active')}>Active</button>
-                <button onClick={() => handleSort('Completed')}>Completed</button>
+                <button onClick={ ()=> {props.changeSort("All")}}>All</button>
+                <button onClick={() => {props.changeSort("Active")}}>Active</button>
+                <button onClick={() => {props.changeSort("Completed")}}>Completed</button>
             </div>
         </div>
     );
