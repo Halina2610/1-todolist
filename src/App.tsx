@@ -1,46 +1,55 @@
 import React, {useState} from 'react';
-import {TaskType,  Todolist} from './layout/TodoList';
+import './App.css';
+import {Todolist} from './Todolist';
+import {v1} from 'uuid';
 
+export type FilterValuesType = "all" | "active" | "completed";
 
-export type sortedType = 'All' | 'Active' | 'Completed';
+function App() {
 
-const App=() => {
+    let [tasks, setTasks] = useState([
+        { id: v1(), title: "HTML&CSS", isDone: true },
+        { id: v1(), title: "JS", isDone: true },
+        { id: v1(), title: "ReactJS", isDone: false },
+        { id: v1(), title: "Rest API", isDone: false },
+        { id: v1(), title: "GraphQL", isDone: false },
 
-    const [tasks, setTasks] = useState<Array<TaskType>>([ //<Array<TaskType>> - протипизировали юстейт
-        {id: 1, title: 'HTML&CSS', isDone: true}, //создаем хук, который следит за текущим состоянием массива
-        {id: 2, title: 'JS', isDone: true}, //где таск - начльное, сеттаск - текущее. Текущее состояние вызываем функции ремувтаск
-        {id: 3, title: 'ReactJS', isDone: false},//
-        {id: 4, title: 'ReactJS', isDone: false},
-        {id: 5, title: 'ReactJS', isDone: false}
-    ])
+    ]);
 
-    //бъявляем юстейт для сортировки
-    const [currentSort, setCurrentSort] = useState<sortedType>('All');
-
-    const removeTask = (id: number) => {
-        const filterTasks = tasks.filter(t => t.id !== id);
-        //в функции ремувтаск объявлена еще одна функция: отфильтровать массив таксков и удалить из него равно выбранной id при клике. Является колбекфункцией
-        setTasks(filterTasks) //используется для обновления состояния tasks при удалении задачи.
+ const removeTask = (id: string) => {
+        let filteredTasks = tasks.filter(t => t.id !== id);
+        setTasks(filteredTasks);
     }
-//функция для значения кнопки
-    const changeSort = (value: sortedType) => {
-        setCurrentSort(value);
+
+  const addTask = (title: string) => {
+       const newTask =  { id: v1(), title: title, isDone: false };
+       const newTasks = [newTask, ...tasks]; //new object
+        setTasks(newTasks)
     }
-    let sortedTasks = tasks; // задачи по умолчанию без сортировки
-    if (currentSort === 'Active') {
-        sortedTasks = tasks.filter((task) => !task.isDone);
-    } else if (currentSort === 'Completed') {
-        sortedTasks = tasks.filter((task) => task.isDone);
+
+    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    let tasksForTodolist = tasks;
+
+    if (filter === "active") {
+        tasksForTodolist = tasks.filter(t => !t.isDone);
+    }
+    if (filter === "completed") {
+        tasksForTodolist = tasks.filter(t => t.isDone);
+    }
+
+    function changeFilter(value: FilterValuesType) {
+        setFilter(value);
     }
 
     return (
         <div className="App">
-            <Todolist
-                title="What to learn"
-                tasks={sortedTasks}
-                setTasks={setTasks}
-                removeTask={removeTask}
-                changeSort={changeSort}/>
+            <Todolist title="What to learn"
+                      tasks={tasksForTodolist}
+                      removeTask={removeTask}
+                      changeFilter={changeFilter}
+                      addTask={addTask}
+            />
         </div>
     );
 }
