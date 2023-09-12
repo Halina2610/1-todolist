@@ -6,3 +6,12 @@
 .App > div {
   margin-right: 50px;
 }
+
+.done-task  {
+  opacity: 0.6;
+}
+
+.error-msg {
+  color: red;
+
+}
