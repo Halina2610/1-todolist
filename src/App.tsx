@@ -9,17 +9,17 @@ import {Container, Grid, Paper} from "@mui/material";
 export type FilterValuesType = 'all' | 'active' | 'completed' | 'remove all tasks';
 
 
-type TodolistsType = {
-    todolistId: string;
-    title: string;
-    filter: FilterValuesType;
-};
+export type TodolistType = {
+    todolistId: string
+    title: string
+    filter: FilterValuesType
+}
 
 function App() {
     let todolistID1 = uuidv4();
     let todolistID2 = uuidv4();
 
-    let [todolists, setTodolists] = useState<Array<TodolistsType>>([
+    let [todolists, setTodolists] = useState<Array<TodolistType>>([
         {todolistId: todolistID1, title: 'What to learn', filter: 'all'},
         {todolistId: todolistID2, title: 'What to buy', filter: 'all'},
     ]);
@@ -92,7 +92,7 @@ function App() {
         });
     };
     const addTodolist = (title: string) => {
-        let todolist: TodolistsType = {
+        let todolist: TodolistType = {
             todolistId: uuidv4(),
             filter: 'all',
             title: title,
