@@ -3,8 +3,7 @@ import './App.css';
 import {TaskType, Todolist} from './components/Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from './components/AddItemForm';
-import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
-import {Menu} from "@mui/icons-material";
+import {Container, Grid, Paper} from "@mui/material";
 import {ButtonAppBar} from "./components/ButtonAppBar";
 
 
@@ -117,10 +116,10 @@ function App() {
                             let tasksForTodolist = allTodolistTasks;
 
                             if (tl.filter === "active") {
-                                tasksForTodolist = allTodolistTasks.filter(t => t.isDone === false);
+                                tasksForTodolist = allTodolistTasks.filter(t => !t.isDone);
                             }
                             if (tl.filter === "completed") {
-                                tasksForTodolist = allTodolistTasks.filter(t => t.isDone === true);
+                                tasksForTodolist = allTodolistTasks.filter(t => t.isDone);
                             }
 
                             return <Grid key={tl.id} item>
