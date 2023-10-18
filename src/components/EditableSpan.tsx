@@ -31,8 +31,8 @@ export const EditableSpan = (props: EditableSpanPropsType) => {
                    onBlur={activateViewMode}
                    id="standard-basic"
                    size={"small"}
-                   color={"info"}/>
+                   color={"success"}/>
     ) : (
-        <span onDoubleClick={activateEditMode}>{props.value}</span>
+        <span onDoubleClick={activateEditMode} style={{fontWeight: 600, color: '#1976d2', marginLeft: '20px'}}>{props.value}</span>
     );
 };

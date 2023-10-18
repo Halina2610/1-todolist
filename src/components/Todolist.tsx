@@ -1,10 +1,10 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValuesType} from './App';
-import {AddItemForm} from './components/AddItemForm';
+import {FilterValuesType} from '../App';
+import {AddItemForm} from './AddItemForm';
 import IconButton from "@mui/material/IconButton/IconButton";
 import {Delete} from "@mui/icons-material";
 import {Button, Checkbox} from "@mui/material";
-import {EditableSpan} from "./components/EditableSpan";
+import {EditableSpan} from "./EditableSpan";
 
 
 export type TaskType = {

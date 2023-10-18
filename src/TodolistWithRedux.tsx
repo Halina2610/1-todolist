@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from 'react';
-import {FilterValuesType, TodolistType} from './App';
+import {TodolistType} from './App';
 import {AddItemForm} from './components/AddItemForm';
 import {EditableSpan} from './components/EditableSpan';
 import IconButton from "@mui/material/IconButton/IconButton";
@@ -34,8 +34,12 @@ export function TodolistWithRedux({todolist}: PropsType) {
     }
 
     const removeTodolist = () => {
-        dispatch(removeTodolistAC(id))
-    }
+        const result = window.confirm("Вы уверены, что хотите удалить этот элемент?");
+        if (result) {
+            dispatch(removeTodolistAC(id));
+        }
+    };
+
     const changeTodolistTitle = (title: string) => {
         dispatch(changeTodolistTitleAC(id, title))
     }
@@ -46,17 +50,16 @@ export function TodolistWithRedux({todolist}: PropsType) {
 
 
     if (filter === "active") {
-        tasks = tasks.filter(t => t.isDone === false);
+        tasks = tasks.filter(t => !t.isDone);
     }
     if (filter === "completed") {
-        tasks = tasks.filter(t => t.isDone === true);
+        tasks = tasks.filter(t => t.isDone);
     }
 
-
     return <div>
-        <h3> <EditableSpan value={title} onChange={changeTodolistTitle} />
+        <h3><EditableSpan value={title} onChange={changeTodolistTitle}/>
             <IconButton onClick={removeTodolist}>
-                <Delete />
+                <Delete color='warning' style={{width: '30px', height: '30px'}}/>
             </IconButton>
         </h3>
         <AddItemForm addItem={addTask}/>
@@ -72,17 +75,16 @@ export function TodolistWithRedux({todolist}: PropsType) {
                         dispatch(changeTaskTitleAC(t.id, newValue, id))
                     }
 
-
                     return <div key={t.id} className={t.isDone ? "is-done" : ""}>
                         <Checkbox
                             checked={t.isDone}
-                            color="primary"
+                            color="success"
                             onChange={onChangeHandler}
                         />
 
-                        <EditableSpan value={t.title} onChange={onTitleChangeHandler} />
+                        <EditableSpan value={t.title} onChange={onTitleChangeHandler}/>
                         <IconButton onClick={onClickHandler}>
-                            <Delete  />
+                            <Delete color='warning'/>
                         </IconButton>
                     </div>
                 })
