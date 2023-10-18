@@ -1,28 +1,29 @@
-import React, {Reducer, useReducer, useState} from 'react';
+import React, {Reducer, useReducer} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
-import {AddItemForm} from './AddItemForm';
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {AddItemForm} from './components/AddItemForm';
+import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {
-    ActionsTodolistType, AddTodolistAC,
-    ChangeTodolistFilterAC, ChangeTodolistTitleAC,
-    RemoveTodolistAC,
+import {ActionsTodolistType, addTodolistAC,
+    changeTodolistFilterAC, changeTodolistTitleAC,
+    removeTodolistAC,
     todolistsReducer
 } from "./state/todolists-reducer";
 
 
 import {
-    ActionsTasksType,
+    ActionTasksType,
     addTaskAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
     removeTaskAC,
     tasksReducer
 } from "./state/task-reducer";
+import {ButtonAppBar} from "./components/ButtonAppBar";
 
 export type FilterValuesType = "all" | "active" | "completed";
+
 export type TodolistType = {
     id: string
     title: string
@@ -34,7 +35,7 @@ export type TasksStateType = {
 }
 
 
-function AppWithReducers() {
+function AppWithReducer() {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
@@ -43,7 +44,7 @@ function AppWithReducers() {
         {id: todolistId2, title: "What to buy", filter: "all"}
     ])
 
-    let [tasks, dispatchToTasks] = useReducer<Reducer<TasksStateType, ActionsTasksType>>(tasksReducer, {
+    let [tasks, dispatchToTasks] = useReducer<Reducer<TasksStateType, ActionTasksType>>(tasksReducer, {
         [todolistId1]: [
             {id: v1(), title: "HTML&CSS", isDone: true},
             {id: v1(), title: "JS", isDone: true}
@@ -71,23 +72,23 @@ function AppWithReducers() {
     }
 
     function changeFilter(todolistId: string, filter: FilterValuesType) {
-        dispatchToTodolists(ChangeTodolistFilterAC(todolistId, filter))
+        dispatchToTodolists(changeTodolistFilterAC(todolistId, filter))
 
     }
 
     function removeTodolist(todolistId: string) {
-        let action = RemoveTodolistAC(todolistId)
+        let action = removeTodolistAC(todolistId)
         dispatchToTodolists(action)
         dispatchToTasks(action)
     }
 
     function changeTodolistTitle(todolistId: string, title: string) {
-        dispatchToTodolists(ChangeTodolistTitleAC(todolistId, title))
+        dispatchToTodolists(changeTodolistTitleAC(todolistId, title))
 
     }
 
     function addTodolist(title: string) {
-        let action = AddTodolistAC(title)
+        let action = addTodolistAC(title)
         dispatchToTodolists(action)
         dispatchToTasks(action)
 
@@ -95,17 +96,7 @@ function AppWithReducers() {
 
     return (
         <div className="App">
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
-                        <Menu/>
-                    </IconButton>
-                    <Typography variant="h6">
-                        News
-                    </Typography>
-                    <Button color="inherit">Login</Button>
-                </Toolbar>
-            </AppBar>
+            <ButtonAppBar/>
             <Container fixed>
                 <Grid container style={{padding: "20px"}}>
                     <AddItemForm addItem={addTodolist}/>
@@ -149,4 +140,4 @@ function AppWithReducers() {
     );
 }
 
-export default AppWithReducers;
+export default AppWithReducer;
