@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, {memo, useCallback} from 'react';
 import { Button } from '@mui/material';
 import {FilterValuesType} from "../AppWithRedux";
 
@@ -10,7 +10,7 @@ type ButtonContainerProps = {
     children: React.ReactNode;
 };
 
-export const ButtonContainer: React.FC<ButtonContainerProps> = React.memo(
+export const ButtonContainer: React.FC<ButtonContainerProps> = memo(
     ({ filter, onClick, color, variant, children }) => {
         const handleClick = useCallback(() => {
             onClick();

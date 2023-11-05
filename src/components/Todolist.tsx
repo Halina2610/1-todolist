@@ -1,10 +1,10 @@
-import React, {useCallback} from 'react'
+import React, {memo, useCallback} from 'react'
 import {Delete} from "@mui/icons-material";
 import {EditableSpan} from "./EditableSpan";
 import {AddItemForm} from "./AddItemForm";
 import {FilterValuesType} from "../AppWithRedux";
 import {Task} from "./Task";
-import {Button, IconButton} from "@mui/material";
+import {Button, ButtonProps, IconButton} from "@mui/material";
 import {ButtonContainer} from "./ButtonContainer";
 
 export type TaskType = {
@@ -28,7 +28,7 @@ type PropsType = {
 
 }
 
-export const Todolist = React.memo(function (props: PropsType) {
+export const Todolist = memo(function (props: PropsType) {
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)
@@ -41,9 +41,16 @@ export const Todolist = React.memo(function (props: PropsType) {
         props.changeTodolistTitle(props.id, title)
     }, [props.id, props.changeTodolistTitle])
 
-    const onAllClickHandler = useCallback(() => props.changeFilter(props.id, 'all' ), [props.changeFilter, props.id])
-    const onActiveClickHandler = useCallback(() => props.changeFilter(props.id, 'active'), [props.changeFilter, props.id])
-    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.id, 'completed'), [props.changeFilter, props.id])
+
+    const onAllClickHandler = useCallback(() => props.changeFilter(props.id, 'all'),
+        [props.changeFilter, props.id])
+
+    const onActiveClickHandler = useCallback(() => props.changeFilter(props.id, 'active'),
+        [props.changeFilter, props.id])
+
+    const onCompletedClickHandler = useCallback(() => props.changeFilter(props.id, 'completed'),
+        [props.changeFilter, props.id])
+
 
     let tasksForTodolist = props.tasks
 
@@ -105,3 +112,18 @@ export const Todolist = React.memo(function (props: PropsType) {
 })
 
 
+interface IMemoButton extends ButtonProps {}
+
+const MemoButton = memo((props: IMemoButton) => (
+    <Button
+        variant={props.variant}
+        onClick={props.onClick}
+        color={props.color}
+    >
+        {props.title}
+    </Button>
+));
+
+
+
+export default MemoButton;
