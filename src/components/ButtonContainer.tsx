@@ -11,7 +11,7 @@ type ButtonContainerProps = {
 };
 
 export const ButtonContainer: React.FC<ButtonContainerProps> = memo(
-    ({ filter, onClick, color, variant, children }) => {
+    ({onClick, color, variant, children }) => {
         const handleClick = useCallback(() => {
             onClick();
         }, [onClick]);

@@ -1,4 +1,4 @@
-import { action } from '@storybook/addon-actions';
+import {action} from '@storybook/addon-actions';
 import {Task} from "../components/Task";
 
 export default {
@@ -19,7 +19,7 @@ export const meta = {
         changeTaskStatus: changeTaskStatusCallback,
         changeTaskTitle: changeTaskTitleCallback,
         removeTask: removeTaskCallback,
-        task: { id: '12wsdewfijdei', title: 'JS', isDone: false },
+        task: {id: '12wsdewfijdei', title: 'JS', isDone: false},
         todolistId: 'fgdosrg8rgjuh',
     },
 };
@@ -30,7 +30,7 @@ export const TaskIsNotDoneStory = () => (
         changeTaskStatus={changeTaskStatusCallback}
         changeTaskTitle={changeTaskTitleCallback}
         removeTask={removeTaskCallback}
-        task={{ id: '12wsdewfijdei2343', title: 'CSS', isDone: false }}
+        task={{id: '12wsdewfijdei2343', title: 'CSS', isDone: false}}
     />
 );
 
@@ -40,6 +40,26 @@ export const TaskIsDoneStory = () => (
         changeTaskStatus={changeTaskStatusCallback}
         changeTaskTitle={changeTaskTitleCallback}
         removeTask={removeTaskCallback}
-        task={{ id: '12wsdewfijdei2343', title: 'CSS', isDone: true }}
+        task={{id: '12wsdewfijdei2343', title: 'CSS', isDone: true}}
     />
+);
+
+export const TaskStory = () => (
+    <>
+        <Task
+            todolistId={'jfkfffflld'}
+            changeTaskStatus={changeTaskStatusCallback}
+            changeTaskTitle={changeTaskTitleCallback}
+            removeTask={removeTaskCallback}
+            task={{id: '12wsdewfijdei2343', title: 'CSS', isDone: false}}
+        />
+        <Task
+            todolistId={'jfkfffflld'}
+            changeTaskStatus={changeTaskStatusCallback}
+            changeTaskTitle={changeTaskTitleCallback}
+            removeTask={removeTaskCallback}
+            task={{id: '12wsdewfijdei2343', title: 'HTML', isDone: true}}
+        />
+    </>
+
 );
