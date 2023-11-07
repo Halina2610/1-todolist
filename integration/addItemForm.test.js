@@ -10,4 +10,3 @@ describe('addItemForm', () => {
         expect(image).toMatchImageSnapshot();
     });
 });
-

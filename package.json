@@ -34,7 +34,8 @@
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 9009",
     "build-storybook": "storybook build",
-    "test:integration": "jest integration-tests"
+    "jest:integration": "jest -c integration/jest.config.js",
+    "test:integration": "start-server-and-test storybook http-get://localhost:6006 jest:integration"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +57,7 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^7.5.2",
     "@storybook/addon-essentials": "7.5.2",
     "@storybook/addon-interactions": "7.5.2",
     "@storybook/addon-links": "7.5.2",
