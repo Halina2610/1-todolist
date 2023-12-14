@@ -1,4 +1,4 @@
-import {FilterValuesType, TodolistType} from '../history/App';
+import {FilterValuesType, TodolistType} from '../App/App';
 import {v1} from 'uuid';
 
 export type RemoveTodolistActionType = {
@@ -42,7 +42,6 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
         case 'CHANGE-TODOLIST-TITLE': {
             const todolist = state.find(tl => tl.id === action.id);
             if (todolist) {
-                // если нашёлся - изменим ему заголовок
                 todolist.title = action.title;
             }
             return [...state]
@@ -50,7 +49,6 @@ export const todolistsReducer = (state: Array<TodolistType> = initialState, acti
         case 'CHANGE-TODOLIST-FILTER': {
             const todolist = state.find(tl => tl.id === action.id);
             if (todolist) {
-                // если нашёлся - изменим ему заголовок
                 todolist.filter = action.filter;
             }
             return [...state]

@@ -13,11 +13,14 @@ type TaskPropsType = {
     todolistId: string
 }
 export const Task = memo((props: TaskPropsType) => {
+
     const onClickHandler = () => props.removeTask(props.task.id, props.todolistId)
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
         props.changeTaskStatus(props.task.id, newIsDoneValue, props.todolistId)
     }
+
     const onTitleChangeHandler = useCallback((newValue: string) => {
         props.changeTaskTitle(props.task.id, newValue, props.todolistId)
     }, [props.task.id, props.changeTaskTitle, props.todolistId]);
@@ -29,9 +32,6 @@ export const Task = memo((props: TaskPropsType) => {
             color="primary"
             onChange={onChangeHandler}
         />
-
-
-
         <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
         <IconButton onClick={onClickHandler}>
             <Delete/>

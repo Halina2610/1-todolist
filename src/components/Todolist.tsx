@@ -4,7 +4,7 @@ import {EditableSpan} from "./EditableSpan";
 import {AddItemForm} from "./AddItemForm";
 import {FilterValuesType} from "../AppWithRedux";
 import {Task} from "./Task";
-import {Button, ButtonProps, IconButton} from "@mui/material";
+import {IconButton} from "@mui/material";
 import {ButtonContainer} from "./ButtonContainer";
 
 export type TaskType = {
@@ -112,18 +112,4 @@ export const Todolist = memo(function (props: PropsType) {
 })
 
 
-interface IMemoButton extends ButtonProps {}
 
-const MemoButton = memo((props: IMemoButton) => (
-    <Button
-        variant={props.variant}
-        onClick={props.onClick}
-        color={props.color}
-    >
-        {props.title}
-    </Button>
-));
-
-
-
-export default MemoButton;

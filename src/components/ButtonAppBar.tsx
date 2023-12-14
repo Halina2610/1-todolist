@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {memo} from "react";
 
 export const ButtonAppBar = memo(() => {
+
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
