@@ -1,5 +1,5 @@
 import {action} from '@storybook/addon-actions';
-import {Task} from "../components/Task";
+import {Task} from "../../components/Task";
 
 export default {
     title: 'TASK',
