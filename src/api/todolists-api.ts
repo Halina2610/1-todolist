@@ -8,11 +8,11 @@ const instance = axios.create({
     },
 });
 
-type TodolistsType = {
+export type TodolistType = {
     id: string,
     title: string,
     addedDate: string,
-    "order": string
+    order: number
 }
 
 type ResponseType<D = {}> = {
@@ -22,11 +22,26 @@ type ResponseType<D = {}> = {
     fieldsErrors?: Array<string>
 }
 
+export enum TaskStatuses {
+    New ,
+    InProgress = 1,
+    Completed,
+    Draft
+}
+
+export enum TaskPriorities {
+    Low,
+    Middle,
+    Hi,
+    Urgently,
+    later
+}
+
 export type TaskType = {
     description: string
     title: string
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
     id: string
@@ -52,11 +67,11 @@ type TasksResponseType = {
 
 export const todolistsApi = {
     getTodolists() {
-        return instance.get<TodolistsType[]>('todo-lists');
+        return instance.get<TodolistType[]>('todo-lists');
     },
 
     createtTodolist(title: string) {
-        return instance.post<ResponseType<{ item: TodolistsType }>>
+        return instance.post<ResponseType<{ item: TodolistType }>>
         ('todo-lists', {title});
     },
 
@@ -100,55 +115,5 @@ export const todolistsApi = {
         return instance.delete<ResponseType>
         (`todo-lists/${todolistId}/tasks/${taskId}`);
     }
-    ,
 
 }
-/*
-import axios from "axios";
-
-const settings = {
-    withCredentials: true,
-    headers: {
-        'API-KEY': 'bdcfda08-91c6-49eb-9714-5d59d1951986',
-    },
-};
-
-export const todolistsApi = {
-    getTodolists() {
-
-        const getPromise = axios
-            .get('https://social-network.samuraijs.com/api/1.1/todo-lists', settings)
-        return getPromise
-    },
-
-    postTodolist(title: string) {
-     let postPromise = axios
-            .post(
-                'https://social-network.samuraijs.com/api/1.1/todo-lists',
-                { title: title },
-                settings
-            )
-        return postPromise
-    },
-
-    putTodolist(title: string, todolistId: string) {
-        const putPromise = axios
-            .put(
-                `https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`,
-                { title: title },
-                settings
-            )
-        return putPromise
-
-    },
-
-    deleteTodolist(todolistId: string) {
-        const deleteedPromise = axios
-            .delete(
-                `https://social-network.samuraijs.com/api/1.1/todo-lists/${todolistId}`,
-                settings
-            )
-        return deleteedPromise
-
-    }
-}*/

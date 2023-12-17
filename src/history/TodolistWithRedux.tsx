@@ -5,20 +5,21 @@ import {Checkbox} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../state/tasks-reducer";
 import {AppRootStateType} from "../state/store";
-import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "../state/todolists-reducer";
+import {
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC,
+    TodolistDomainType
+} from "../state/todolists-reducer";
 import {EditableSpan} from "../components/EditableSpan";
 import {AddItemForm} from "../components/AddItemForm";
-import {TodolistType} from "../AppWithRedux";
 import {ButtonContainer} from "../components/ButtonContainer";
+import {TaskStatuses, TaskType} from "../api/todolists-api";
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+
 
 type PropsType = {
-    todolist: TodolistType
+    todolist: TodolistDomainType
 }
 
 export function TodolistWithRedux({todolist}: PropsType) {
@@ -50,10 +51,10 @@ export function TodolistWithRedux({todolist}: PropsType) {
 
 
     if (filter === "active") {
-        tasks = tasks.filter(t => !t.isDone);
+        tasks = tasks.filter(t => t.status === TaskStatuses.New);
     }
     if (filter === "completed") {
-        tasks = tasks.filter(t => t.isDone);
+        tasks = tasks.filter(t => t.status === TaskStatuses.Completed);
     }
 
     return <div>
@@ -68,16 +69,16 @@ export function TodolistWithRedux({todolist}: PropsType) {
                 tasks.map(t => {
                     const onClickHandler = () => dispatch(removeTaskAC(t.id, id))
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        let newIsDoneValue = e.currentTarget.checked;
-                        dispatch(changeTaskStatusAC(t.id, newIsDoneValue, id))
+                        let newStatusValue = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New;
+                        dispatch(changeTaskStatusAC(t.id, newStatusValue, id))
                     }
                     const onTitleChangeHandler = (newValue: string) => {
                         dispatch(changeTaskTitleAC(t.id, newValue, id))
                     }
 
-                    return <div key={t.id} className={t.isDone ? "is-done" : ""}>
+                    return <div key={t.id} className={t.status === TaskStatuses.Completed ? 'is-done' : ''}>
                         <Checkbox
-                            checked={t.isDone}
+                            checked={t.status === TaskStatuses.Completed}
                             color="success"
                             onChange={onChangeHandler}
                         />

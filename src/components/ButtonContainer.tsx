@@ -1,6 +1,6 @@
 import React, {memo, useCallback} from 'react';
 import { Button } from '@mui/material';
-import {FilterValuesType} from "../AppWithRedux";
+import {FilterValuesType} from "../state/todolists-reducer";
 
 type ButtonContainerProps = {
     filter: FilterValuesType;

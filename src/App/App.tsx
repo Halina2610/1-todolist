@@ -1,19 +1,16 @@
 import React from 'react';
 import '../App.css';
-import {TaskType, Todolist} from '../components/Todolist';
+import {Todolist} from '../components/Todolist';
 import {AddItemForm} from '../components/AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import useTasks from "./hooks/useTasks";
 import useTodolists from "./hooks/useTodolists";
+import {TaskStatuses, TaskType} from "../api/todolists-api";
 
 
-export type FilterValuesType = "all" | "active" | "completed";
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
+
+
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -64,10 +61,10 @@ function App() {
                             let tasksForTodolist = allTodolistTasks;
 
                             if (tl.filter === "active") {
-                                tasksForTodolist = allTodolistTasks.filter(t => !t.isDone);
+                                tasksForTodolist = allTodolistTasks.filter(t => t.status === TaskStatuses.New);
                             }
                             if (tl.filter === "completed") {
-                                tasksForTodolist = allTodolistTasks.filter(t => t.isDone);
+                                tasksForTodolist = allTodolistTasks.filter(t => t.status === TaskStatuses.Completed);
                             }
 
                             return <Grid key={tl.id} item>
