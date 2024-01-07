@@ -57,7 +57,7 @@ export const DeleteTodolist = () => {
 
         todolistsApi.deleteTodolist(todolistId)
             .then((res) => {
-                debugger;
+
                 setState(res.data);
             })
             .catch(error => {
@@ -281,7 +281,7 @@ export const UpdateTasks = () => {
             placeholder={'status'}
             value={status}
             onChange={(e) => {
-                setStatus+(e.currentTarget.value)
+                setStatus(parseInt(e.currentTarget.value, 10));
             }}
         />
         <button onClick={onClickHandler}>Update task</button>
