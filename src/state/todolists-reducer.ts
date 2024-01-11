@@ -1,4 +1,3 @@
-
 import {v1} from 'uuid';
 import {TodolistType} from "../api/todolists-api";
 
@@ -22,9 +21,16 @@ export type ChangeTodolistFilterActionType = {
     filter: FilterValuesType
 }
 
-export type ActionsTodolistType = RemoveTodolistActionType | AddTodolistActionType
+export type SetTodolistsType = {
+    type: "SET-TODOLISTS"
+    todolists: TodolistType[]
+}
+
+export type ActionsTodolistType = RemoveTodolistActionType
+    | AddTodolistActionType
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
+    | SetTodolistsType
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -33,7 +39,7 @@ export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType
 }
 
-const initialState: Array<TodolistDomainType> =  []
+const initialState: Array<TodolistDomainType> = []
 
 export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: ActionsTodolistType): Array<TodolistDomainType> => {
     switch (action.type) {
@@ -63,21 +69,28 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             }
             return [...state]
         }
+        case "SET-TODOLISTS":{
+            return action.todolists.map((td) => ({ ...td, filter: 'all' }));
+        }
         default:
             return state;
     }
 }
 
 export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
-    return { type: 'REMOVE-TODOLIST', id: todolistId}
+    return {type: 'REMOVE-TODOLIST', id: todolistId}
 }
 export const addTodolistAC = (title: string): AddTodolistActionType => {
-    return { type: 'ADD-TODOLIST', title: title, todolistId: v1()}
+    return {type: 'ADD-TODOLIST', title: title, todolistId: v1()}
 }
 export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleActionType => {
-    return { type: 'CHANGE-TODOLIST-TITLE', id: id, title: title}
+    return {type: 'CHANGE-TODOLIST-TITLE', id: id, title: title}
 }
 export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
-    return { type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
+    return {type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
+}
+
+export const setTodolistsAC = (todolists: TodolistType[]): SetTodolistsType => {
+   return {type: "SET-TODOLISTS", todolists: todolists}
 }
 
