@@ -1,7 +1,7 @@
 import React, {memo} from "react";
 import { Fab, TextField } from "@mui/material";
 import { Edit as EditIcon } from "@mui/icons-material";
-import useAddItemForm from "../App/hooks/useAddItemForm";
+import useAddItemForm from "../hooks/useAddItemForm";
 
 type AddItemFormProps = {
     addItem: (title: string) => void;

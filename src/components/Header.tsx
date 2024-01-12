@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {memo} from "react";
 
-export const ButtonAppBar = memo(() => {
+export const Header = memo(() => {
 
     return (
         <Box sx={{flexGrow: 1}}>

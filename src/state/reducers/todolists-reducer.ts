@@ -1,36 +1,19 @@
 import {v1} from 'uuid';
-import {TodolistType} from "../api/todolists-api";
+import {todolistsApi, TodolistType} from "../../api/todolists-api";
+import {Dispatch} from "redux";
+import {
+    AddTodolistActionType,
+    ChangeTodolistFilterActionType,
+    ChangeTodolistTitleActionType,
+    RemoveTodolistActionType, SetTodolistsActionType
+} from "../actions/actions";
 
-export type RemoveTodolistActionType = {
-    type: 'REMOVE-TODOLIST',
-    id: string
-}
-export type AddTodolistActionType = {
-    type: 'ADD-TODOLIST',
-    title: string
-    todolistId: string
-}
-export type ChangeTodolistTitleActionType = {
-    type: 'CHANGE-TODOLIST-TITLE',
-    id: string
-    title: string
-}
-export type ChangeTodolistFilterActionType = {
-    type: 'CHANGE-TODOLIST-FILTER',
-    id: string
-    filter: FilterValuesType
-}
-
-export type SetTodolistsType = {
-    type: "SET-TODOLISTS"
-    todolists: TodolistType[]
-}
 
 export type ActionsTodolistType = RemoveTodolistActionType
     | AddTodolistActionType
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
-    | SetTodolistsType
+    | SetTodolistsActionType
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -77,20 +60,5 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
     }
 }
 
-export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
-    return {type: 'REMOVE-TODOLIST', id: todolistId}
-}
-export const addTodolistAC = (title: string): AddTodolistActionType => {
-    return {type: 'ADD-TODOLIST', title: title, todolistId: v1()}
-}
-export const changeTodolistTitleAC = (id: string, title: string): ChangeTodolistTitleActionType => {
-    return {type: 'CHANGE-TODOLIST-TITLE', id: id, title: title}
-}
-export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): ChangeTodolistFilterActionType => {
-    return {type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
-}
 
-export const setTodolistsAC = (todolists: TodolistType[]): SetTodolistsType => {
-   return {type: "SET-TODOLISTS", todolists: todolists}
-}
 

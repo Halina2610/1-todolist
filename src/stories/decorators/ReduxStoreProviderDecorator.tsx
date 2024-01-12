@@ -2,10 +2,10 @@ import React from 'react'
 import {Provider} from "react-redux";
 import {combineReducers, legacy_createStore} from "redux";
 import {v1} from "uuid";
-import {tasksReducer} from "../state/tasks-reducer";
-import {todolistsReducer} from "../state/todolists-reducer";
-import {AppRootStateType} from "../state/store";
-import {TaskPriorities, TaskStatuses} from "../api/todolists-api";
+import {tasksReducer} from "../../state/reducers/tasks-reducer";
+import {todolistsReducer} from "../../state/reducers/todolists-reducer";
+import {AppRootStateType} from "../../state/store/store";
+import {TaskPriorities, TaskStatuses} from "../../api/todolists-api";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
@@ -26,7 +26,7 @@ const initialGlobalState = {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: "",
-                todoListId: "todolistId1",
+                todolistId: "todolistId1",
                 order: 0,
                 addedDate: ''
             },
@@ -37,7 +37,7 @@ const initialGlobalState = {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: "",
-                todoListId: "todolistId1",
+                todolistId: "todolistId1",
                 order: 0,
                 addedDate: ''
             }
@@ -50,7 +50,7 @@ const initialGlobalState = {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: "",
-                todoListId: "todolistId2",
+                todolistId: "todolistId2",
                 order: 0,
                 addedDate: ''
             },
@@ -61,7 +61,7 @@ const initialGlobalState = {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: "",
-                todoListId: "todolistId2",
+                todolistId: "todolistId2",
                 order: 0,
                 addedDate: ''
             }
