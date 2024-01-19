@@ -26,7 +26,7 @@ const initialGlobalState = {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: "",
-                todolistId: "todolistId1",
+                todoListId: "todolistId1",
                 order: 0,
                 addedDate: ''
             },
@@ -37,7 +37,7 @@ const initialGlobalState = {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: "",
-                todolistId: "todolistId1",
+                todoListId: "todolistId1",
                 order: 0,
                 addedDate: ''
             }
@@ -50,7 +50,7 @@ const initialGlobalState = {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: "",
-                todolistId: "todolistId2",
+                todoListId: "todolistId2",
                 order: 0,
                 addedDate: ''
             },
@@ -61,7 +61,7 @@ const initialGlobalState = {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 deadline: "",
-                todolistId: "todolistId2",
+                todoListId: "todolistId2",
                 order: 0,
                 addedDate: ''
             }

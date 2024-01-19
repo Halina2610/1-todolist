@@ -1,6 +1,4 @@
-import {v1} from 'uuid';
-import {todolistsApi, TodolistType} from "../../api/todolists-api";
-import {Dispatch} from "redux";
+import {TodolistType} from "../../api/todolists-api";
 import {
     AddTodolistActionType,
     ChangeTodolistFilterActionType,
@@ -31,7 +29,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
         }
         case 'ADD-TODOLIST': {
             return [{
-                id: action.todolistId,
+                id: action.todoListId,
                 title: action.title,
                 order: 0,
                 addedDate: "",

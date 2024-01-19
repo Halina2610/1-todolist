@@ -8,7 +8,6 @@ import {ButtonContainer} from "./ButtonContainer";
 import {TaskStatuses, TaskType} from "../api/todolists-api";
 import {FilterValuesType} from "../state/reducers/todolists-reducer";
 import {fetchTasksTC} from "../state/actions/thunks";
-import {useDispatch} from "react-redux";
 import {useAppDispatch} from "../state/store/store";
 
 
@@ -32,7 +31,9 @@ export const Todolist = memo(function (props: PropsType) {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+
         dispatch(fetchTasksTC(props.id))
+
     }, [dispatch]);
 
     const addTask = useCallback((title: string) => {

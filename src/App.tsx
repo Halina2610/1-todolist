@@ -8,14 +8,15 @@ import {AppRootStateType, useAppDispatch} from './state/store/store';
 import {Container, Grid, Paper} from "@mui/material";
 import {Header} from "./components/Header";
 import {Todolist} from "./components/Todolist";
-import {TaskStatuses, TaskType} from "./api/todolists-api";
+import {TaskStatuses} from "./api/todolists-api";
 import {addTaskTC, fetchTodolistsTC, removeTaskTC} from "./state/actions/thunks";
 import {
-    addTaskAC, addTodolistAC,
+    addTodolistAC,
     changeTaskStatusAC,
     changeTaskTitleAC,
-    changeTodolistFilterAC, changeTodolistTitleAC,
-    removeTaskAC, removeTodolistAC
+    changeTodolistFilterAC,
+    changeTodolistTitleAC,
+    removeTodolistAC
 } from "./state/actions/actions";
 
 
@@ -28,32 +29,32 @@ export const App = memo(() => {
 
     useEffect(() => {
         dispatch(fetchTodolistsTC())
-    }, [])
+    }, [dispatch])
 
-    const removeTask = useCallback(function (id: string, todolistId: string) {
-        const thunk = removeTaskTC(id, todolistId)
+    const removeTask = useCallback(function (id: string, todoListId: string) {
+        const thunk = removeTaskTC(id, todoListId)
         dispatch(thunk)
     }, [])
 
 
 
-    const addTask = useCallback((todolistId: string, title: string) => {
+    const addTask = useCallback((title: string, todoListId: string) => {
 
-        dispatch(addTaskTC(todolistId, title));
-    }, [dispatch])
+        dispatch(addTaskTC( title, todoListId));
+    }, [])
 
-    const changeStatus = useCallback((id: string, status: TaskStatuses, todolistId: string) => {
-        const action = changeTaskStatusAC(id, status, todolistId);
+    const changeStatus = useCallback((id: string, status: TaskStatuses, todoListId: string) => {
+        const action = changeTaskStatusAC(id, status, todoListId);
         dispatch(action);
     }, [dispatch])
 
-    const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
-        const action = changeTaskTitleAC(id, newTitle, todolistId);
+    const changeTaskTitle = useCallback((id: string, newTitle: string, todoListId: string) => {
+        const action = changeTaskTitleAC(id, newTitle, todoListId);
         dispatch(action);
     }, [dispatch])
 
-    const changeFilter = useCallback((todolistId: string, filter: FilterValuesType) => {
-        const action = changeTodolistFilterAC(todolistId, filter);
+    const changeFilter = useCallback((todoListId: string, filter: FilterValuesType) => {
+        const action = changeTodolistFilterAC(todoListId, filter);
         dispatch(action);
     }, [dispatch])
 

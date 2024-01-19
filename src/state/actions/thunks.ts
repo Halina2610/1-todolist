@@ -1,4 +1,4 @@
-import {TaskType, todolistsApi} from '../../api/todolists-api';
+import {todolistsApi} from '../../api/todolists-api';
 import {addTaskAC, removeTaskAC, setTasksAC, setTodolistsAC} from "./actions";
 import {AppActionsType, AppRootStateType} from "../store/store";
 import {ThunkAction} from "redux-thunk";
@@ -33,11 +33,11 @@ export const fetchTasksTC = (todolistId: string): ThunkType => {
 };
 
 
-export const removeTaskTC = (id: string, todolistId: string): ThunkType => {
+export const removeTaskTC = (id: string, todoListId: string): ThunkType => {
     return async (dispatch) => {
         try {
-            await todolistsApi.deleteTask(id, todolistId)
-            dispatch(removeTaskAC(id, todolistId))
+            await todolistsApi.deleteTask(id, todoListId)
+            dispatch(removeTaskAC(id, todoListId))
         }
         catch (error) {
             console.log(error)
@@ -45,10 +45,10 @@ export const removeTaskTC = (id: string, todolistId: string): ThunkType => {
     }
 }
 
-export const addTaskTC = (todolistId: string, title: string): ThunkType => {
+export const addTaskTC = (title: string, todoListId: string): ThunkType => {
     return async (dispatch) => {
         try {
-            const res = await todolistsApi.createTask(todolistId, title);
+            const res = await todolistsApi.createTask(title, todoListId);
             dispatch(addTaskAC(res.data.data.item));
 
         } catch (error) {

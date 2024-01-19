@@ -7,12 +7,16 @@ import {TaskStateType} from "../state/reducers/tasks-reducer";
 export default function useTasks() {
     let [tasks, setTasks] = useState<TaskStateType>({
         [todolistId1]: [
-            {id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed, deadline: '', addedDate: '', startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todolistId: "todolistId1"},
-            {id: v1(), title: "JS", status: TaskStatuses.Completed, deadline: '', addedDate: '', startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todolistId: "todolistId1"}
+            {id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed, deadline: '', addedDate: '',
+                startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todoListId: "todolistId1"},
+            {id: v1(), title: "JS", status: TaskStatuses.Completed, deadline: '', addedDate: '',
+                startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todoListId: "todolistId1"}
         ],
         [todolistId2]: [
-            {id: v1(), title: "Milk", status: TaskStatuses.Completed, deadline: '', addedDate: '', startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todolistId: "todolistId2"},
-            {id: v1(), title: "React Book", status: TaskStatuses.Completed, deadline: '', addedDate: '', startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todolistId: "todolistId2"}
+            {id: v1(), title: "Milk", status: TaskStatuses.Completed, deadline: '', addedDate: '',
+                startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todoListId: "todolistId2"},
+            {id: v1(), title: "React Book", status: TaskStatuses.Completed, deadline: '', addedDate: '',
+                startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todoListId: "todolistId2"}
         ]
     });
 
@@ -22,10 +26,10 @@ export default function useTasks() {
         setTasks({...tasks});
     }
 
-    function addTask(title: string, todolistId: string) {
-        let task = {id: v1(), title: title, status: TaskStatuses.New, deadline: '', addedDate: '', startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todolistId: v1()};
-        let todolistTasks = tasks[todolistId];
-        tasks[todolistId] = [task, ...todolistTasks];
+    function addTask(title: string, todoListId: string) {
+        let task = {id: v1(), title: title, status: TaskStatuses.New, deadline: '', addedDate: '', startDate: '', description: '', order: 0, priority: TaskPriorities.Low, todoListId: v1()};
+        let todolistTasks = tasks[todoListId];
+        tasks[todoListId] = [task, ...todolistTasks];
         setTasks({...tasks});
     }
 

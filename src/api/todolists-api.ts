@@ -15,11 +15,11 @@ export type TodolistType = {
     order: number
 }
 
-type ResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
+    fieldsErrors: Array<string>
     data: D
-    fieldsErrors?: Array<string>
 }
 
 export enum TaskStatuses {
@@ -45,7 +45,7 @@ export type TaskType = {
     startDate: string
     deadline: string
     id: string
-    todolistId: string
+    todoListId: string
     order: number
     addedDate: string
 }
@@ -71,13 +71,13 @@ export const todolistsApi = {
     },
 
     createtTodolist(title: string) {
-        return instance.post<ResponseType<{ item: TodolistType }>>
+        return instance.post<ResponseType<{item: TodolistType }>>
         ('todo-lists', {title});
     },
 
-    updateTodolist(title: string, todolistId: string) {
+    updateTodolist(title: string, todoListId: string) {
         return instance.put<ResponseType>
-        (`todo-lists/${todolistId}`, {title});
+        (`todo-lists/${todoListId}`, {title});
     },
 
     deleteTodolist(todolistId: string) {
@@ -86,17 +86,17 @@ export const todolistsApi = {
     },
 
 
-    getTasks(todolistId: string) {
-        return instance.get<TasksResponseType>(`todo-lists/${todolistId}/tasks`);
+    getTasks(todoListId: string) {
+        return instance.get<TasksResponseType>(`todo-lists/${todoListId}/tasks`);
     },
 
-    createTask(todolistId: string, title: string) {
+    createTask(title: string, todoListId: string) {
         return instance.post<ResponseType<{item: TaskType}>>
-        (`todo-lists/${todolistId}/tasks`, {title});
+        (`todo-lists/${todoListId}/tasks`, {title});
     },
 
     updateTasks(
-        todolistId: string,
+        todoListId: string,
         taskId: string,
         title: string,
         description: string,
@@ -106,7 +106,7 @@ export const todolistsApi = {
         deadline: string
     ) {
         return instance.put<UpdateTaskType>
-        (`todo-lists/${todolistId}/tasks/${taskId}`,
+        (`todo-lists/${todoListId}/tasks/${taskId}`,
             {title, description, status, priority, startDate, deadline});
     },
 
