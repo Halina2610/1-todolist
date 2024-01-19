@@ -34,22 +34,11 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             return stateCopy;
         }
         case 'ADD-TASK': {
+            debugger
             const stateCopy = {...state}
-            const newTask: TaskType = {
-                id: v1(),
-                title: action.title,
-                status: TaskStatuses.New,
-                description: "",
-                priority: TaskPriorities.Low,
-                startDate: '',
-                deadline: "",
-                todolistId: action.todolistId,
-                order: 0,
-                addedDate: ''
-            }
-            const tasks = stateCopy[action.todolistId];
-            const newTasks = [newTask, ...tasks];
-            stateCopy[action.todolistId] = newTasks;
+            const tasks = stateCopy[action.task.todolistId];
+            const newTasks = [action.task, ...tasks];
+            stateCopy[action.task.todolistId] = newTasks;
             return stateCopy;
         }
         case 'CHANGE-TASK-STATUS': {

@@ -32,9 +32,7 @@ export const Todolist = memo(function (props: PropsType) {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-
         dispatch(fetchTasksTC(props.id))
-
     }, [dispatch]);
 
     const addTask = useCallback((title: string) => {

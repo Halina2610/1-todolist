@@ -3,13 +3,13 @@ import './App.css';
 import {AddItemForm} from './components/AddItemForm';
 import {FilterValuesType, TodolistDomainType} from './state/reducers/todolists-reducer'
 import {TaskStateType} from './state/reducers/tasks-reducer';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {AppRootStateType, useAppDispatch} from './state/store/store';
 import {Container, Grid, Paper} from "@mui/material";
 import {Header} from "./components/Header";
 import {Todolist} from "./components/Todolist";
-import {TaskStatuses} from "./api/todolists-api";
-import {fetchTasksTC, fetchTodolistsTC} from "./state/actions/thunks";
+import {TaskStatuses, TaskType} from "./api/todolists-api";
+import {addTaskTC, fetchTodolistsTC, removeTaskTC} from "./state/actions/thunks";
 import {
     addTaskAC, addTodolistAC,
     changeTaskStatusAC,
@@ -30,15 +30,16 @@ export const App = memo(() => {
         dispatch(fetchTodolistsTC())
     }, [])
 
-    const removeTask = useCallback((id: string, todolistId: string) => {
-        const action = removeTaskAC(id, todolistId);
-        dispatch(action);
-    }, [dispatch])
+    const removeTask = useCallback(function (id: string, todolistId: string) {
+        const thunk = removeTaskTC(id, todolistId)
+        dispatch(thunk)
+    }, [])
 
 
-    const addTask = useCallback((title: string, todolistId: string) => {
-        const action = addTaskAC(title, todolistId);
-        dispatch(action);
+
+    const addTask = useCallback((todolistId: string, title: string) => {
+
+        dispatch(addTaskTC(todolistId, title));
     }, [dispatch])
 
     const changeStatus = useCallback((id: string, status: TaskStatuses, todolistId: string) => {
