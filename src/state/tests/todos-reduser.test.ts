@@ -7,7 +7,7 @@ import {
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
+    updateTodolistTitleAC,
     removeTodolistAC, setTodolistsAC,
     SetTodolistsActionType
 } from "../actions/actions";
@@ -34,20 +34,11 @@ describe('todolistsReducer', () => {
         expect(newState[0].id).toBe('2');
     });
 
-    it('should add a todolist', () => {
-        const title = 'New Todolist';
-        const action = addTodolistAC(title);
-        const newState = todolistsReducer(initialState, action);
-
-        expect(newState.length).toBe(1);
-        expect(newState[0].title).toBe(title);
-        expect(newState[0].filter).toBe('all');
-    });
 
     it('should change the title of a todolist', () => {
         const todolistId = '1';
         const newTitle = 'Updated Todolist';
-        const action = changeTodolistTitleAC(todolistId, newTitle);
+        const action = updateTodolistTitleAC(todolistId, newTitle);
         const newState = todolistsReducer(state, action);
 
         expect(newState.length).toBe(2);

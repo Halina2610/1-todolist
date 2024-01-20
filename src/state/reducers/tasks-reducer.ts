@@ -1,16 +1,13 @@
-import { TaskStatuses, TaskType} from "../../api/todolists-api";
+import {TaskStatuses, TaskType} from "../../api/todolists-api";
 import {
     AddTaskActionType, AddTodolistActionType,
-    ChangeTaskStatusActionType,
-    ChangeTaskTitleActionType,
-    RemoveTaskActionType, RemoveTodolistActionType, SetTasksActionType, SetTodolistsActionType
+    RemoveTaskActionType, RemoveTodolistActionType, SetTasksActionType, SetTodolistsActionType, updateTaskAC
 } from "../actions/actions";
 
 
 export type ActionsTaskType = RemoveTaskActionType
     | AddTaskActionType
-    | ChangeTaskStatusActionType
-    | ChangeTaskTitleActionType
+    | ReturnType<typeof updateTaskAC>
     | AddTodolistActionType
     | RemoveTodolistActionType
     | SetTodolistsActionType
@@ -41,24 +38,16 @@ export const tasksReducer = (state: TaskStateType = initialState, action: Action
             stateCopy[action.task.todoListId] = newTasks;
             return stateCopy;
         }
-        case 'CHANGE-TASK-STATUS': {
+        case 'UPDATE-TASK':
             return {
                 ...state,
-                [action.todoListId]: state[action.todoListId]
-                    .map(t => t.id === action.taskId ? {...t, status: action.status ? TaskStatuses.Completed : TaskStatuses.New} : t)
+                [action.todolistId]: state[action.todolistId]
+                    .map(t => t.id === action.taskId ? {...t, ...action.model} : t)
             }
-        }
-        case 'CHANGE-TASK-TITLE': {
-            return {
-                ...state,
-                [action.todoListId]: state[action.todoListId]
-                    .map(t => t.id === action.taskId ? {...t, title: action.title} : t)
-            }
-        }
         case 'ADD-TODOLIST': {
             return {
                 ...state,
-                [action.todoListId]: []
+                [action.todolist.id]: []
             }
         }
         case 'REMOVE-TODOLIST': {
