@@ -1,15 +1,14 @@
 import React, {memo, useCallback, useEffect} from 'react'
 import {Delete} from "@mui/icons-material";
-import {EditableSpan} from "./EditableSpan";
-import {AddItemForm} from "./AddItemForm";
+import {EditableSpan} from "../../../components/editableSpan/EditableSpan";
+import {AddItemForm} from "../../../components/addItemForm/AddItemForm";
 import {Task} from "./Task";
 import {IconButton} from "@mui/material";
-import {ButtonContainer} from "./ButtonContainer";
-import {TaskStatuses, TaskType} from "../api/todolists-api";
-import {FilterValuesType} from "../state/reducers/todolists-reducer";
-import {fetchTasksTC} from "../state/actions/thunks";
-import {useAppDispatch} from "../state/store/store";
-
+import {ButtonContainer} from "../../../components/buttons/ButtonContainer";
+import {TaskStatuses, TaskType} from "../../../api/todolists-api";
+import {FilterValuesType} from "../../../state/reducers/todolists-reducer";
+import {fetchTasksTC} from "../../../state/actionsAndThunck/thunks";
+import {useAppDispatch} from "../../../state/store/store";
 
 
 type PropsType = {
@@ -31,18 +30,15 @@ export const Todolist = memo(function (props: PropsType) {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-
         dispatch(fetchTasksTC(props.id))
-
     }, [dispatch]);
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)
     }, [props.addTask, props.id])
 
-    const removeTodolist = () => {
-        props.removeTodolist(props.id)
-    }
+    const removeTodolist = () => props.removeTodolist(props.id)
+
     const changeTodolistTitle = useCallback((title: string) => {
         props.changeTodolistTitle(props.id, title)
     }, [props.id, props.changeTodolistTitle])
@@ -67,7 +63,7 @@ export const Todolist = memo(function (props: PropsType) {
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
-    return <div>
+    return <div style={{minHeight: '300px', padding: '50px'}}>
         <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
             <IconButton onClick={removeTodolist}>
                 <Delete/>

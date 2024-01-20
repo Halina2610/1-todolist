@@ -3,14 +3,9 @@ import {
     todolistsReducer,
     FilterValuesType,
     TodolistDomainType,
-} from '../reducers/todolists-reducer';
-import {
-    addTodolistAC,
-    changeTodolistFilterAC,
-    updateTodolistTitleAC,
-    removeTodolistAC, setTodolistsAC,
-    SetTodolistsActionType
-} from "../actions/actions";
+} from '../todolists-reducer';
+import {changeTodolistFilterAC, removeTodolistAC, setTodolistsAC, updateTodolistTitleAC} from "../../actionsAndThunck/actions";
+
 
 
 const state: Array<TodolistDomainType> = [
@@ -56,7 +51,7 @@ describe('todolistsReducer', () => {
     });
 
     it('should set the todolists', () => {
-        const action: SetTodolistsActionType = setTodolistsAC(state);
+        const action = setTodolistsAC(state);
         const newState = todolistsReducer([], action);
 
         expect(newState.length).toBe(2);

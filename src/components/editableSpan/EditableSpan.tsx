@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {TextField} from "@mui/material";
-import useEditableSpan from "../hooks/useEditableSpan";
+import useEditableSpan from "../../hooks/useEditableSpan";
 
 
 type EditableSpanPropsType = {

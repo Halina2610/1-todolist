@@ -1,10 +1,10 @@
 import {useState} from "react";
 import {v1} from "uuid";
-import {todolistId1, todolistId2} from "../utils/id-utils";
+import {todolistId1, todolistId2} from "./utils/id-utils";
 import {TaskPriorities, TaskStatuses} from "../api/todolists-api";
 import {TaskStateType} from "../state/reducers/tasks-reducer";
 
-export default function useTasks() {
+export function useTasks() {
     let [tasks, setTasks] = useState<TaskStateType>({
         [todolistId1]: [
             {id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed, deadline: '', addedDate: '',

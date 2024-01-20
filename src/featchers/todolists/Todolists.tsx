@@ -1,8 +1,8 @@
 import React, {memo, useCallback, useEffect} from 'react';
-import {FilterValuesType, TodolistDomainType} from '../state/reducers/todolists-reducer'
-import {TaskStateType} from '../state/reducers/tasks-reducer';
+import {FilterValuesType, TodolistDomainType} from '../../state/reducers/todolists-reducer'
+import {TaskStateType} from '../../state/reducers/tasks-reducer';
 import {useSelector} from 'react-redux';
-import {AppRootStateType, useAppDispatch} from '../state/store/store';
+import {AppRootStateType, useAppDispatch} from '../../state/store/store';
 import {Container, Grid, Paper} from "@mui/material";
 import {
     addTaskTC,
@@ -11,12 +11,12 @@ import {
     fetchTodolistsTC,
     removeTaskTC,
     removeTodolistTC, updateTaskTC
-} from "../state/actions/thunks";
+} from "../../state/actionsAndThunck/thunks";
 
-import {Todolist} from "./Todolist";
-import {TaskStatuses} from "../api/todolists-api";
-import {changeTodolistFilterAC} from "../state/actions/actions";
-import {AddItemForm} from "./AddItemForm";
+import {Todolist} from "./todolist/Todolist";
+import {TaskStatuses} from "../../api/todolists-api";
+import {changeTodolistFilterAC} from "../../state/actionsAndThunck/actions";
+import {AddItemForm} from "../../components/addItemForm/AddItemForm";
 
 
 export const Todolists = memo(() => {
@@ -68,10 +68,10 @@ export const Todolists = memo(() => {
 
     return (
         <Container fixed>
-            <Grid container style={{padding: "20px"}}>
+            <Grid container style={{padding: "20px", margin: "50px 0"}}>
                 <AddItemForm addItem={addTodolist}/>
             </Grid>
-            <Grid container spacing={3}>
+            <Grid  container spacing={3}>
                 {
                     todolists.map(tl => {
                         return <Grid item key={tl.id}>
