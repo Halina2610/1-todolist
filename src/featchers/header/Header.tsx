@@ -7,8 +7,13 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {memo} from "react";
+import LinearProgress from '@mui/material/LinearProgress/LinearProgress';
+import {AppRootStateType, useAppSelector} from "../../state/store/store";
+import {RequestStatusType} from "../../state/reducers/app-reducer";
 
 export const Header = memo(() => {
+
+   const status = useAppSelector<RequestStatusType>(state => state.app.status)
 
     return (
         <Box sx={{flexGrow: 1}}>
@@ -29,6 +34,7 @@ export const Header = memo(() => {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
+         {status === 'loading' &&  <LinearProgress />}
         </Box>
     );
 })

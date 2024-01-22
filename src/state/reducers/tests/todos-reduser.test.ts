@@ -9,8 +9,8 @@ import {changeTodolistFilterAC, removeTodolistAC, setTodolistsAC, updateTodolist
 
 
 const state: Array<TodolistDomainType> = [
-    {id: '1', title: 'First Todolist', order: 0, addedDate: '', filter: 'all'},
-    {id: '2', title: 'Second Todolist', order: 0, addedDate: '', filter: 'all'},
+    {id: '1', title: 'First Todolist', order: 0, addedDate: '', filter: 'all', entityStatus: 'idle'},
+    {id: '2', title: 'Second Todolist', order: 0, addedDate: '', filter: 'all', entityStatus: 'idle'},
 ];
 
 describe('todolistsReducer', () => {

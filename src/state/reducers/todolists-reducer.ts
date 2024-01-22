@@ -6,6 +6,7 @@ import {
     setTodolistsAC,
     updateTodolistTitleAC,
 } from "../actionsAndThunck/actions";
+import {RequestStatusType} from "./app-reducer";
 
 const initialState: TodolistDomainType[] = [];
 
@@ -18,7 +19,7 @@ export const todolistsReducer = (
             return state.filter(tl => tl.id !== action.id);
         }
         case 'ADD-TODOLIST': {
-            const newTodolist: TodolistDomainType = {...action.todolist, filter: "all"};
+            const newTodolist: TodolistDomainType = {...action.todolist, filter: "all", entityStatus: "idle"};
             return [newTodolist, ...state];
         }
         case 'CHANGE-TODOLIST-TITLE': {
@@ -32,7 +33,7 @@ export const todolistsReducer = (
             );
         }
         case 'SET-TODOLISTS': {
-            return action.todolists.map(td => ({ ...td, filter: 'all' }));
+            return action.todolists.map(td => ({ ...td, filter: 'all', entityStatus: "idle" }));
         }
         default:
             return state;
@@ -50,4 +51,5 @@ export type FilterValuesType = "all" | "active" | "completed";
 
 export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType;
+    entityStatus: RequestStatusType
 };
