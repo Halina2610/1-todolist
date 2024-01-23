@@ -1,13 +1,11 @@
 import {TaskType} from "../../api/todolists-api";
 import {
     addTaskAC,
-    addTodolistAC,
     removeTaskAC,
-    removeTodolistAC,
     setTasksAC,
-    setTodolistsAC,
     updateTaskAC,
-} from "../actionsAndThunck/actions";
+} from "../actions/actionsTasks";
+import {addTodolistAC, removeTodolistAC, setTodolistsAC} from "../actions/actionsTodolists";
 
 const initialState: TaskStateType = {};
 

@@ -1,5 +1,5 @@
-import {setAppErrorAC, setAppStatusAC} from "../../actionsAndThunck/actions";
 import { appReducer, InitialAppStateType } from "../app-reducer";
+import {setAppErrorAC, setAppStatusAC} from "../../actions/actionsApp";
 
 describe('appReducer', () => {
     let initialState: InitialAppStateType;

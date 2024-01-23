@@ -7,8 +7,9 @@ import {IconButton} from "@mui/material";
 import {ButtonContainer} from "../../../components/buttons/ButtonContainer";
 import {TaskStatuses, TaskType} from "../../../api/todolists-api";
 import {FilterValuesType} from "../../../state/reducers/todolists-reducer";
-import {fetchTasksTC} from "../../../state/actionsAndThunck/thunks";
+import {fetchTasksTC} from "../../../state/thunks/thunksTask";
 import {useAppDispatch} from "../../../state/store/store";
+import {RequestStatusType} from "../../../state/reducers/app-reducer";
 
 
 type PropsType = {
@@ -23,7 +24,7 @@ type PropsType = {
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
-
+    entityStatus: RequestStatusType
 }
 
 export const Todolist = memo(function (props: PropsType) {
@@ -65,11 +66,11 @@ export const Todolist = memo(function (props: PropsType) {
 
     return <div style={{minHeight: '300px', padding: '50px'}}>
         <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist}>
+            <IconButton onClick={removeTodolist} disabled={props.entityStatus === "loading"}>
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask}/>
+        <AddItemForm addItem={addTask} entityStatus={props.entityStatus}/>
         <div>
             {
                 tasksForTodolist.map(t => <Task

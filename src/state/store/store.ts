@@ -1,7 +1,7 @@
 import {ActionsTaskType, tasksReducer} from '../reducers/tasks-reducer';
 import {ActionsTodolistType, todolistsReducer} from '../reducers/todolists-reducer';
 import {AnyAction, applyMiddleware, combineReducers, createStore} from 'redux';
-import thunkMiddleware, {ThunkDispatch} from "redux-thunk";
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {ActionsAppType, appReducer} from "../reducers/app-reducer";
 
@@ -23,3 +23,9 @@ export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelecto
 // @ts-ignore
 window.store = store;
 
+export type ThunkType<ReturnType = void> = ThunkAction<
+    void,
+    AppRootStateType,
+    unknown,
+    AppActionsType
+>;

@@ -1,4 +1,4 @@
-import {setAppErrorAC, setAppStatusAC} from "../actionsAndThunck/actions";
+import {setAppErrorAC, setAppStatusAC} from "../actions/actionsApp";
 
 const initialState: InitialAppStateType = {
     status: 'loading',

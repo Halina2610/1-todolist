@@ -1,11 +1,10 @@
 import { TodolistType } from "../../api/todolists-api";
 import {
-    addTodolistAC,
+    addTodolistAC, changeTodolistEntityStatusAC,
     changeTodolistFilterAC,
-    removeTodolistAC,
-    setTodolistsAC,
-    updateTodolistTitleAC,
-} from "../actionsAndThunck/actions";
+    removeTodolistAC, setTodolistsAC,
+    updateTodolistTitleAC
+} from "../actions/actionsTodolists";
 import {RequestStatusType} from "./app-reducer";
 
 const initialState: TodolistDomainType[] = [];
@@ -35,6 +34,10 @@ export const todolistsReducer = (
         case 'SET-TODOLISTS': {
             return action.todolists.map(td => ({ ...td, filter: 'all', entityStatus: "idle" }));
         }
+        case 'CHANGE-TODOLIST-ENTITY-STATUS' : {
+            return state.map(tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl)
+
+        }
         default:
             return state;
     }
@@ -45,6 +48,7 @@ export type ActionsTodolistType =
     | ReturnType<typeof addTodolistAC>
     | ReturnType<typeof updateTodolistTitleAC>
     | ReturnType<typeof changeTodolistFilterAC>
+    | ReturnType<typeof changeTodolistEntityStatusAC>
     | ReturnType<typeof setTodolistsAC>;
 
 export type FilterValuesType = "all" | "active" | "completed";

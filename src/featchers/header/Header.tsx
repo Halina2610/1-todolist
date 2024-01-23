@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {memo} from "react";
 import LinearProgress from '@mui/material/LinearProgress/LinearProgress';
-import {AppRootStateType, useAppSelector} from "../../state/store/store";
+import {useAppSelector} from "../../state/store/store";
 import {RequestStatusType} from "../../state/reducers/app-reducer";
 
 export const Header = memo(() => {
@@ -34,7 +34,7 @@ export const Header = memo(() => {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-         {status === 'loading' &&  <LinearProgress />}
+         {status === 'loading' &&  <LinearProgress color={'secondary'}/>}
         </Box>
     );
 })

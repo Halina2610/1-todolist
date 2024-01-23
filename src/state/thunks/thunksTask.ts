@@ -1,69 +1,10 @@
 import {TaskPriorities, TaskStatuses, todolistsApi, UpdateTaskType} from '../../api/todolists-api';
 import {
-    addTaskAC, addTodolistAC, updateTodolistTitleAC, removeTaskAC,
-    removeTodolistAC, setTasksAC, setTodolistsAC, updateTaskAC, setAppErrorAC, setAppStatusAC
-} from "./actions";
-import {AppActionsType, AppRootStateType} from "../store/store";
-import {ThunkAction} from "redux-thunk";
-
-
-// thunks for todolist
-export const fetchTodolistsTC = (): ThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    try {
-        const res = await todolistsApi.getTodolists();
-        dispatch(setTodolistsAC(res.data));
-        dispatch(setAppStatusAC('succeeded'))
-
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while fetching the data');
-    }
-};
-
-export const removeTodolistTC = (todoListId: string): ThunkType => async (dispatch) => {
-    try {
-        await todolistsApi.removeTodolist(todoListId);
-        dispatch(removeTodolistAC(todoListId));
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while removed the data');
-    }
-};
-
-export const addTodolistTC = (title: string): ThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-
-    try {
-        const res = await todolistsApi.addTodolist(title);
-        if (res.data.resultCode === 0) {
-            dispatch(addTodolistAC(res.data.data.item));
-            dispatch(setAppStatusAC('succeeded'))
-
-        } else {
-            if (res.data.messages.length !== 0) {
-                dispatch(setAppErrorAC(res.data.messages[0]));
-            }
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while added the data');
-    }
-};
-
-export const updateTodolistTitleTC = (id: string, title: string): ThunkType => async (dispatch) => {
-    try {
-        await todolistsApi.updateTodolist(id, title);
-        dispatch(updateTodolistTitleAC(id, title));
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while updated the data');
-    }
-};
-
-
-// thunks for task
-
+    addTaskAC, removeTaskAC,
+    setTasksAC, updateTaskAC,
+} from "../actions/actionsTasks";
+import {ThunkType} from "../store/store";
+import {setAppErrorAC, setAppStatusAC} from "../actions/actionsApp";
 
 export const fetchTasksTC = (todolistId: string): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -74,41 +15,45 @@ export const fetchTasksTC = (todolistId: string): ThunkType => async (dispatch) 
 
         if (res.data.error !== null) {
             dispatch(setAppErrorAC(res.data.error))
+            console.error(res.data.totalCount)
         }
     } catch (error) {
         console.error('Error:', error);
-        throw new Error('An error occurred while fetching the data');
+        throw new Error('An error occurred while fetching the task');
     }
 };
 
 export const removeTaskTC = (id: string, todoListId: string): ThunkType => async (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     try {
         await todolistsApi.removeTask(id, todoListId);
         dispatch(removeTaskAC(id, todoListId));
-
+        dispatch(setAppStatusAC('succeeded'))
     } catch (error) {
         console.error('Error:', error);
-        throw new Error('An error occurred while removed the data');
+        throw new Error('An error occurred while removed the task');
     }
 };
 
 export const addTaskTC = (title: string, todoListId: string): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-
     try {
         const res = await todolistsApi.addTask(title, todoListId);
         if (res.data.resultCode === 0) {
             dispatch(addTaskAC(res.data.data.item));
             dispatch(setAppStatusAC('succeeded'))
-
         } else {
             if (res.data.messages.length > 0) {
                 dispatch(setAppErrorAC(res.data.messages[0])); // Исправление: использование [0] для получения первого сообщения об ошибке
+            } else {
+                dispatch(setAppErrorAC('Some error occurred'))
+                console.error('this addTaskTC')
+
             }
         }
     } catch (error) {
         console.error('Error:', error);
-        throw new Error('An error occurred while added the data');
+        throw new Error('An error occurred while added the task');
     }
 };
 
@@ -118,6 +63,8 @@ export const updateTaskTC = (
     domainModel: UpdateDomainTaskModelType,
     todolistId: string
 ): ThunkType => async (dispatch, getState) => {
+
+    dispatch(setAppStatusAC('loading'))
     try {
         const task = getState().tasks[todolistId].find((t) => t.id === taskId);
         if (!task) {
@@ -137,21 +84,15 @@ export const updateTaskTC = (
 
         await todolistsApi.updateTask(todolistId, taskId, model);
         dispatch(updateTaskAC(taskId, domainModel, todolistId));
+        dispatch(setAppStatusAC('succeeded'))
     } catch (error) {
         console.error('Error:', error);
-        throw new Error('An error occurred while update the data');
+        throw new Error('An error occurred while update the task');
     }
 };
 
 
 // types
-type ThunkType<ReturnType = void> = ThunkAction<
-    void,
-    AppRootStateType,
-    unknown,
-    AppActionsType
->;
-
 export type UpdateDomainTaskModelType = {
     title?: string
     description?: string

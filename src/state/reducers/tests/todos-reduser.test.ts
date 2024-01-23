@@ -1,10 +1,14 @@
-import {v1} from 'uuid';
 import {
     todolistsReducer,
     FilterValuesType,
     TodolistDomainType,
 } from '../todolists-reducer';
-import {changeTodolistFilterAC, removeTodolistAC, setTodolistsAC, updateTodolistTitleAC} from "../../actionsAndThunck/actions";
+import {
+    changeTodolistFilterAC,
+    removeTodolistAC,
+    setTodolistsAC,
+    updateTodolistTitleAC
+} from "../../actions/actionsTodolists";
 
 
 
