@@ -7,7 +7,6 @@ import {
 } from "../actions/actionsTasks";
 import {
     addTodolistAC,
-    changeTodolistEntityStatusAC,
     removeTodolistAC,
     setTodolistsAC
 } from "../actions/actionsTodolists";

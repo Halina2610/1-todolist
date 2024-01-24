@@ -1,17 +1,14 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {App} from "./App";
-import {ReduxStoreProviderDecorator} from "../stories/decorators/ReduxStoreProviderDecorator";
-
+import React from 'react'
+import {action} from '@storybook/addon-actions'
+import {App} from '../app/App'
+import {ReduxStoreProviderDecorator} from '../stories/decorators/ReduxStoreProviderDecorator'
 
 export default {
-    title: "App With Redux Stories ",
+    title: 'App Stories',
     component: App,
-    tags: ['autodocs'],
     decorators: [ReduxStoreProviderDecorator]
 }
-// More on how to set up stories at:
-type Story = StoryObj<typeof App>;
 
-// More on component templates:
-// https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-export const AppWithReduxStory: Story = {}
+export const AppBaseExample = (props: any) => {
+    return (<App demo={true} />)
+}

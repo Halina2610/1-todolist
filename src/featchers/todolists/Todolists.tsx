@@ -11,7 +11,11 @@ import {addTodolistTC, fetchTodolistsTC, removeTodolistTC, updateTodolistTitleTC
 import {changeTodolistFilterAC} from "../../state/actions/actionsTodolists";
 import {RequestStatusType} from "../../state/reducers/app-reducer";
 
-export const Todolists = memo(() => {
+type PropsType = {
+    demo?: boolean
+}
+
+export const Todolists = memo(({demo= false}: PropsType) => {
 
     const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useAppSelector<TaskStateType>(state => state.tasks)
@@ -20,17 +24,19 @@ export const Todolists = memo(() => {
 
 
     useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(fetchTodolistsTC())
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const removeTodolist = useCallback((todoListId: string) => {
         dispatch(removeTodolistTC(todoListId))
     }, [dispatch])
 
     const removeTask = useCallback(function (id: string, todoListId: string) {
-        const thunk = removeTaskTC(id, todoListId)
-        dispatch(thunk)
-    }, [])
+        dispatch(removeTaskTC(id, todoListId))
+    }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodolistTC(title));
@@ -38,31 +44,28 @@ export const Todolists = memo(() => {
 
     const addTask = useCallback((title: string, todoListId: string) => {
         dispatch(addTaskTC(title, todoListId));
-    }, [])
+    }, [dispatch])
 
     const changeTodolistTitle = useCallback((id: string, title: string) => {
         dispatch(updateTodolistTitleTC(id, title));
     }, [dispatch])
 
     const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
-        const thunk = updateTaskTC(id, {status}, todolistId)
-        dispatch(thunk)
-    }, [])
+        dispatch(updateTaskTC(id, {status}, todolistId))
+    }, [dispatch])
 
     const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
-        const thunk = updateTaskTC(id, {title: newTitle}, todolistId)
-        dispatch(thunk)
-    }, [])
+        dispatch(updateTaskTC(id, {title: newTitle}, todolistId))
+    }, [dispatch])
 
     const changeFilter = useCallback((todoListId: string, filter: FilterValuesType) => {
-        const action = changeTodolistFilterAC(todoListId, filter);
-        dispatch(action);
+        dispatch(changeTodolistFilterAC(todoListId, filter));
     }, [dispatch])
 
 
     return (
         <Container fixed>
-            <Grid container style={{padding: "20px", margin: "50px 0"}}>
+            <Grid container style={{padding: "10px", margin: "50px 0"}}>
                 <AddItemForm addItem={addTodolist} entityStatus={entityStatus}/>
             </Grid>
             <Grid  container spacing={3}>
@@ -82,7 +85,7 @@ export const Todolists = memo(() => {
                                     removeTodolist={removeTodolist}
                                     changeTaskTitle={changeTaskTitle}
                                     changeTodolistTitle={changeTodolistTitle}
-                                    entityStatus={tl.entityStatus}
+                                    demo={demo}
                                 />
                             </Paper>
                         </Grid>

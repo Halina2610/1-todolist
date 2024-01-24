@@ -7,7 +7,7 @@ import {RequestStatusType} from "../../state/reducers/app-reducer";
 type EditableSpanPropsType = {
     value: string
     onChange: (newValue: string) => void
-    entityStatusTask: RequestStatusType
+    entityStatus?: RequestStatusType
 }
 
 export const EditableSpan = memo((props: EditableSpanPropsType) => {
@@ -28,7 +28,7 @@ export const EditableSpan = memo((props: EditableSpanPropsType) => {
                         id="standard-basic"
                         size={"small"}
                         color={"success"}
-                        disabled={props.entityStatusTask === 'loading'}
+                        disabled={props.entityStatus === 'loading'}
         />
         : <span onDoubleClick={activateEditMode}>{props.value}</span>
 })

@@ -1,6 +1,6 @@
 import {TaskPriorities, TaskStatuses, todolistsApi, UpdateTaskType} from '../../api/todolists-api';
 import {
-    addTaskAC, removeTaskAC,
+    addTaskAC, changeTaskEntityStatusAC, removeTaskAC,
     setTasksAC, updateTaskAC,
 } from "../actions/actionsTasks";
 import {ThunkType} from "../store/store";
@@ -25,10 +25,13 @@ export const fetchTasksTC = (todolistId: string): ThunkType => async (dispatch) 
 
 export const removeTaskTC = (id: string, todoListId: string): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(changeTaskEntityStatusAC(id, todoListId, 'loading'))
     try {
         await todolistsApi.removeTask(id, todoListId);
         dispatch(removeTaskAC(id, todoListId));
         dispatch(setAppStatusAC('succeeded'))
+        dispatch(changeTaskEntityStatusAC(id, todoListId, 'succeeded'))
+
     } catch (error: any) {
         handleServerNetworkError(error, dispatch)
     }
@@ -57,6 +60,8 @@ export const updateTaskTC = (
 ): ThunkType => async (dispatch, getState) => {
 
     dispatch(setAppStatusAC('loading'))
+    dispatch(changeTaskEntityStatusAC(taskId, todolistId, 'loading'))
+
     try {
         const task = getState().tasks[todolistId].find((t) => t.id === taskId);
         if (!task) {
@@ -77,6 +82,8 @@ export const updateTaskTC = (
         await todolistsApi.updateTask(todolistId, taskId, model);
         dispatch(updateTaskAC(taskId, domainModel, todolistId));
         dispatch(setAppStatusAC('succeeded'))
+        dispatch(changeTaskEntityStatusAC(taskId, todolistId, 'succeeded'))
+
     } catch (error: any) {
         handleServerNetworkError(error, dispatch)
     }

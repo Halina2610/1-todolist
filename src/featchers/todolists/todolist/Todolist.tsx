@@ -8,7 +8,7 @@ import {ButtonContainer} from "../../../components/buttons/ButtonContainer";
 import {TaskStatuses, TaskType} from "../../../api/todolists-api";
 import {FilterValuesType} from "../../../state/reducers/todolists-reducer";
 import {fetchTasksTC} from "../../../state/thunks/thunksTask";
-import {useAppDispatch} from "../../../state/store/store";
+import {useAppDispatch, useAppSelector} from "../../../state/store/store";
 import {RequestStatusType} from "../../../state/reducers/app-reducer";
 
 
@@ -24,15 +24,19 @@ type PropsType = {
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
-    entityStatus: RequestStatusType
+    demo?: boolean
 }
 
-export const Todolist = memo(function (props: PropsType) {
+export const Todolist = memo(function ({demo = false,...props}: PropsType) {
     const dispatch = useAppDispatch()
+    const entityStatus = useAppSelector<RequestStatusType>(state => state.app.status)
 
     useEffect(() => {
-        dispatch(fetchTasksTC(props.id))
-    }, [dispatch]);
+        if (demo) {
+            return
+        }
+            dispatch(fetchTasksTC(props.id))
+    }, [dispatch, props.id, demo]);
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)
@@ -65,12 +69,12 @@ export const Todolist = memo(function (props: PropsType) {
     }
 
     return <div style={{minHeight: '300px', padding: '50px'}}>
-        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist} disabled={props.entityStatus === "loading"}>
+        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle} />
+            <IconButton onClick={removeTodolist} disabled={entityStatus === "loading"} >
                 <Delete/>
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask} entityStatus={props.entityStatus}/>
+        <AddItemForm addItem={addTask} entityStatus={entityStatus}/>
         <div>
             {
                 tasksForTodolist.map(t => <Task

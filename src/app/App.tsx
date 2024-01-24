@@ -4,13 +4,15 @@ import {Header} from "../featchers/header/Header";
 import {Todolists} from "../featchers/todolists/Todolists";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
-
-export const App = memo(() => {
+type PropsType = {
+    demo?: boolean
+}
+export const App = memo(({demo = false} : PropsType) => {
 
     return (
         <div className="App">
             <Header/>
-            <Todolists/>
+            <Todolists demo={demo}/>
             <ErrorSnackbar />
         </div>
     );

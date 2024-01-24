@@ -13,7 +13,7 @@ import {RequestStatusType} from "../../state/reducers/app-reducer";
 
 export const Header = memo(() => {
 
-   const status = useAppSelector<RequestStatusType>(state => state.app.status)
+    const status = useAppSelector<RequestStatusType>(state => state.app.status)
 
     return (
         <Box sx={{flexGrow: 1}}>
@@ -27,8 +27,12 @@ export const Header = memo(() => {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
+                {status === 'loading' ? (
+                    <LinearProgress color={'secondary'} />
+                ) : (
+                    <LinearProgress style={{ opacity: 0 }} />
+                )}
             </AppBar>
-         {status === 'loading' &&  <LinearProgress color={'secondary'}/>}
         </Box>
     );
 })

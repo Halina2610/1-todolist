@@ -6,7 +6,7 @@ import {RequestStatusType} from "../../state/reducers/app-reducer";
 
 type AddItemFormProps = {
     addItem: (title: string) => void;
-    entityStatus: RequestStatusType
+    entityStatus?: RequestStatusType
 
 };
 
