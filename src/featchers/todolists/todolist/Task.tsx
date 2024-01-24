@@ -4,6 +4,9 @@ import {IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {EditableSpan} from "../../../components/editableSpan/EditableSpan";
 import {TaskStatuses, TaskType} from "../../../api/todolists-api";
+import {RequestStatusType} from "../../../state/reducers/app-reducer";
+import {useAppSelector} from "../../../state/store/store";
+import {TaskDomainType} from "../../../state/reducers/tasks-reducer";
 
 type TaskPropsType = {
     changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
@@ -13,6 +16,7 @@ type TaskPropsType = {
     todolistId: string
 }
 export const Task = memo((props: TaskPropsType) => {
+    const entityStatusTask: RequestStatusType = useAppSelector<RequestStatusType>(state => state.app.status);
 
     const onClickHandler = useCallback(() => props.removeTask(props.task.id, props.todolistId), [props.task.id, props.todolistId]);
 
@@ -32,8 +36,8 @@ export const Task = memo((props: TaskPropsType) => {
             color="primary"
             onChange={onChangeHandler}
         />
-        <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
-        <IconButton onClick={onClickHandler}>
+        <EditableSpan value={props.task.title} onChange={onTitleChangeHandler} entityStatusTask={entityStatusTask}/>
+        <IconButton onClick={onClickHandler} disabled={entityStatusTask === 'loading'}>
             <Delete/>
         </IconButton>
     </div>

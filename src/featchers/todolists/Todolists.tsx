@@ -1,33 +1,21 @@
 import React, {memo, useCallback, useEffect} from 'react';
 import {FilterValuesType, TodolistDomainType} from '../../state/reducers/todolists-reducer'
 import {TaskStateType} from '../../state/reducers/tasks-reducer';
-import {useSelector} from 'react-redux';
-import {AppRootStateType, useAppDispatch, useAppSelector} from '../../state/store/store';
+import {useAppDispatch, useAppSelector} from '../../state/store/store';
 import {Container, Grid, Paper} from "@mui/material";
-import {
-    addTaskTC,
-    removeTaskTC,
-    updateTaskTC
-} from "../../state/thunks/thunksTask";
-
+import {addTaskTC, removeTaskTC, updateTaskTC} from "../../state/thunks/thunksTask";
 import {Todolist} from "./todolist/Todolist";
 import {TaskStatuses} from "../../api/todolists-api";
 import {AddItemForm} from "../../components/addItemForm/AddItemForm";
-import {
-    addTodolistTC,
-    fetchTodolistsTC,
-    removeTodolistTC,
-    updateTodolistTitleTC
-} from "../../state/thunks/thunkTodolist";
+import {addTodolistTC, fetchTodolistsTC, removeTodolistTC, updateTodolistTitleTC} from "../../state/thunks/thunkTodolist";
 import {changeTodolistFilterAC} from "../../state/actions/actionsTodolists";
 import {RequestStatusType} from "../../state/reducers/app-reducer";
-
 
 export const Todolists = memo(() => {
 
     const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useAppSelector<TaskStateType>(state => state.tasks)
-    const entityStatus = useAppSelector<RequestStatusType>(e => e.app.status)
+    const entityStatus = useAppSelector<RequestStatusType>(state => state.app.status)
     const dispatch = useAppDispatch()
 
 
@@ -75,7 +63,7 @@ export const Todolists = memo(() => {
     return (
         <Container fixed>
             <Grid container style={{padding: "20px", margin: "50px 0"}}>
-                <AddItemForm addItem={addTodolist}  entityStatus={entityStatus}/>
+                <AddItemForm addItem={addTodolist} entityStatus={entityStatus}/>
             </Grid>
             <Grid  container spacing={3}>
                 {
@@ -94,7 +82,8 @@ export const Todolists = memo(() => {
                                     removeTodolist={removeTodolist}
                                     changeTaskTitle={changeTaskTitle}
                                     changeTodolistTitle={changeTodolistTitle}
-                                    entityStatus={tl.entityStatus}                                />
+                                    entityStatus={tl.entityStatus}
+                                />
                             </Paper>
                         </Grid>
                     })

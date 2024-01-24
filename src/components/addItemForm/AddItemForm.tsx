@@ -32,7 +32,7 @@ export const AddItemForm = memo((props: AddItemFormProps) => {
                 disabled={props.entityStatus === 'loading'}
             />
 
-            <Fab onClick={addItem} size="small" color="info" aria-label="edit">
+            <Fab onClick={addItem} size="small" color="info" aria-label="edit" disabled={props.entityStatus === 'loading'}>
                 <EditIcon aria-disabled={props.entityStatus === 'loading'}/>
             </Fab>
 

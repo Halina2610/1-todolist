@@ -1,5 +1,4 @@
-import { TaskType, TodolistType } from "../../api/todolists-api";
-import { FilterValuesType } from "../reducers/todolists-reducer";
+import { TaskType } from "../../api/todolists-api";
 import { UpdateDomainTaskModelType } from "../thunks/thunksTask";
 import {RequestStatusType} from "../reducers/app-reducer";
 
@@ -10,8 +9,6 @@ export const addTaskAC = (task: TaskType) => ({ type: 'ADD-TASK', task } as cons
 export const updateTaskAC = (taskId: string, model: UpdateDomainTaskModelType, todolistId: string) => ({ type: 'UPDATE-TASK', model, todolistId, taskId } as const);
 export const setTasksAC = (tasks: TaskType[], todoListId: string) => ({ type: "SET-TASKS", tasks, todoListId } as const);
 
+export const changeTaskEntityStatusAC = (taskId: string, todolistId: string, entityTaskStatus: RequestStatusType) =>
 
-//actions for todolist
-
-
-//actions for app
+({type: 'CHANGE-TASK-ENTITY-STATUS', taskId, todolistId, entityTaskStatus} as const)

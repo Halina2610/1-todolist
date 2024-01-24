@@ -1,11 +1,13 @@
 import React, {memo} from 'react';
 import {TextField} from "@mui/material";
 import useEditableSpan from "../../hooks/useEditableSpan";
+import {RequestStatusType} from "../../state/reducers/app-reducer";
 
 
 type EditableSpanPropsType = {
     value: string
     onChange: (newValue: string) => void
+    entityStatusTask: RequestStatusType
 }
 
 export const EditableSpan = memo((props: EditableSpanPropsType) => {
@@ -25,6 +27,8 @@ export const EditableSpan = memo((props: EditableSpanPropsType) => {
                         onBlur={activateViewMode}
                         id="standard-basic"
                         size={"small"}
-                        color={"success"}/>
+                        color={"success"}
+                        disabled={props.entityStatusTask === 'loading'}
+        />
         : <span onDoubleClick={activateEditMode}>{props.value}</span>
 })

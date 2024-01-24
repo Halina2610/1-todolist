@@ -2,7 +2,7 @@ import {ThunkType} from "../store/store";
 import {setAppErrorAC, setAppStatusAC} from "../actions/actionsApp";
 import {todolistsApi} from "../../api/todolists-api";
 import {addTodolistAC, removeTodolistAC, setTodolistsAC, updateTodolistTitleAC} from "../actions/actionsTodolists";
-import {throws} from "assert";
+import {handleServerAppError, handleServerNetworkError} from "../utils/handleServerAppError";
 
 export const fetchTodolistsTC = (): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -11,9 +11,8 @@ export const fetchTodolistsTC = (): ThunkType => async (dispatch) => {
         dispatch(setTodolistsAC(res.data));
         dispatch(setAppStatusAC('succeeded'))
 
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while fetching the todolists');
+    } catch (error: any) {
+        handleServerNetworkError(error, dispatch)
     }
 };
 
@@ -25,9 +24,8 @@ export const removeTodolistTC = (todoListId: string): ThunkType => async (dispat
         dispatch(removeTodolistAC(todoListId));
         dispatch(setAppStatusAC('succeeded'))
 
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while removed the todolist');
+    } catch (error: any) {
+        handleServerNetworkError(error, dispatch)
     }
 };
 
@@ -40,16 +38,11 @@ export const addTodolistTC = (title: string): ThunkType => async (dispatch) => {
             dispatch(setAppStatusAC('succeeded'))
 
         } else {
-            if (res.data.messages.length !== 0) {
-                dispatch(setAppErrorAC(res.data.messages[0]));
-            } else {
-                dispatch(setAppErrorAC('Some error occurred'))
-            }
+            handleServerAppError(res.data, dispatch)
         }
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while added the todolist');
-    }
+     } catch (error: any) {
+    handleServerNetworkError(error, dispatch)
+}
 };
 
 export const updateTodolistTitleTC = (id: string, title: string): ThunkType => async (dispatch) => {
@@ -58,8 +51,7 @@ export const updateTodolistTitleTC = (id: string, title: string): ThunkType => a
         await todolistsApi.updateTodolist(id, title);
         dispatch(updateTodolistTitleAC(id, title));
         dispatch(setAppStatusAC('succeeded'))
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while updated the todolist');
+    } catch (error: any) {
+        handleServerNetworkError(error, dispatch)
     }
 };

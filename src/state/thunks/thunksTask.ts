@@ -5,6 +5,7 @@ import {
 } from "../actions/actionsTasks";
 import {ThunkType} from "../store/store";
 import {setAppErrorAC, setAppStatusAC} from "../actions/actionsApp";
+import {handleServerAppError, handleServerNetworkError} from "../utils/handleServerAppError";
 
 export const fetchTasksTC = (todolistId: string): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -17,9 +18,8 @@ export const fetchTasksTC = (todolistId: string): ThunkType => async (dispatch) 
             dispatch(setAppErrorAC(res.data.error))
             console.error(res.data.totalCount)
         }
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while fetching the task');
+    } catch (error: any) {
+        handleServerNetworkError(error, dispatch)
     }
 };
 
@@ -29,9 +29,8 @@ export const removeTaskTC = (id: string, todoListId: string): ThunkType => async
         await todolistsApi.removeTask(id, todoListId);
         dispatch(removeTaskAC(id, todoListId));
         dispatch(setAppStatusAC('succeeded'))
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while removed the task');
+    } catch (error: any) {
+        handleServerNetworkError(error, dispatch)
     }
 };
 
@@ -43,17 +42,10 @@ export const addTaskTC = (title: string, todoListId: string): ThunkType => async
             dispatch(addTaskAC(res.data.data.item));
             dispatch(setAppStatusAC('succeeded'))
         } else {
-            if (res.data.messages.length > 0) {
-                dispatch(setAppErrorAC(res.data.messages[0])); // Исправление: использование [0] для получения первого сообщения об ошибке
-            } else {
-                dispatch(setAppErrorAC('Some error occurred'))
-                console.error('this addTaskTC')
-
-            }
+            handleServerAppError(res.data, dispatch)
         }
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while added the task');
+    } catch (error: any) {
+        handleServerNetworkError(error, dispatch)
     }
 };
 
@@ -85,12 +77,10 @@ export const updateTaskTC = (
         await todolistsApi.updateTask(todolistId, taskId, model);
         dispatch(updateTaskAC(taskId, domainModel, todolistId));
         dispatch(setAppStatusAC('succeeded'))
-    } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while update the task');
+    } catch (error: any) {
+        handleServerNetworkError(error, dispatch)
     }
 };
-
 
 // types
 export type UpdateDomainTaskModelType = {
