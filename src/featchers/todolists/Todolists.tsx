@@ -5,30 +5,30 @@ import {useAppDispatch, useAppSelector} from '../../state/store/store';
 import {Container, Grid, Paper} from "@mui/material";
 import {addTaskTC, removeTaskTC, updateTaskTC} from "../../state/thunks/thunksTask";
 import {Todolist} from "./todolist/Todolist";
-import {TaskStatuses} from "../../api/todolists-api";
+import {TaskStatuses} from "../../api/todolistApi";
 import {AddItemForm} from "../../components/addItemForm/AddItemForm";
 import {addTodolistTC, fetchTodolistsTC, removeTodolistTC, updateTodolistTitleTC} from "../../state/thunks/thunkTodolist";
 import {changeTodolistFilterAC} from "../../state/actions/actionsTodolists";
-import {RequestStatusType} from "../../state/reducers/app-reducer";
+import {ErrorSnackbar} from "../../components/ErrorSnackbar/ErrorSnackbar";
+import {useNavigate} from "react-router-dom";
 
-type PropsType = {
-    demo?: boolean
-}
 
-export const Todolists = memo(({demo= false}: PropsType) => {
+export const Todolists = memo(() => {
 
     const todolists = useAppSelector<Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useAppSelector<TaskStateType>(state => state.tasks)
-    const entityStatus = useAppSelector<RequestStatusType>(state => state.app.status)
+    const isLoggedIn = useAppSelector<boolean>(state => state.auth.isLoggedIn);
     const dispatch = useAppDispatch()
-
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (demo) {
-            return
+        if (!isLoggedIn) {
+            navigate('/login');
+        } else {
+            dispatch(fetchTodolistsTC())
         }
-        dispatch(fetchTodolistsTC())
-    }, [dispatch, demo])
+    }, [isLoggedIn, navigate]);
+
 
     const removeTodolist = useCallback((todoListId: string) => {
         dispatch(removeTodolistTC(todoListId))
@@ -66,7 +66,7 @@ export const Todolists = memo(({demo= false}: PropsType) => {
     return (
         <Container fixed>
             <Grid container style={{padding: "10px", margin: "50px 0"}}>
-                <AddItemForm addItem={addTodolist} entityStatus={entityStatus}/>
+                <AddItemForm addItem={addTodolist} />
             </Grid>
             <Grid  container spacing={3}>
                 {
@@ -74,24 +74,22 @@ export const Todolists = memo(({demo= false}: PropsType) => {
                         return <Grid item key={tl.id}>
                             <Paper style={{padding: "10px"}}>
                                 <Todolist
-                                    id={tl.id}
-                                    title={tl.title}
+                                   todolist={tl}
                                     tasks={tasks[tl.id]}
                                     removeTask={removeTask}
                                     changeFilter={changeFilter}
                                     addTask={addTask}
                                     changeTaskStatus={changeStatus}
-                                    filter={tl.filter}
                                     removeTodolist={removeTodolist}
                                     changeTaskTitle={changeTaskTitle}
                                     changeTodolistTitle={changeTodolistTitle}
-                                    demo={demo}
                                 />
                             </Paper>
                         </Grid>
                     })
                 }
             </Grid>
+            <ErrorSnackbar />
         </Container>
 
     );

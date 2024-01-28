@@ -3,7 +3,7 @@ import React, {ChangeEvent, memo, useCallback} from 'react'
 import {IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {EditableSpan} from "../../../components/editableSpan/EditableSpan";
-import {TaskStatuses, TaskType} from "../../../api/todolists-api";
+import {TaskStatuses, TaskType} from "../../../api/todolistApi";
 import {RequestStatusType} from "../../../state/reducers/app-reducer";
 import {useAppSelector} from "../../../state/store/store";
 

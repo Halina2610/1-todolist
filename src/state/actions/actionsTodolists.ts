@@ -1,4 +1,4 @@
-import {TodolistType} from "../../api/todolists-api";
+import {TodolistType} from "../../api/todolistApi";
 import {FilterValuesType} from "../reducers/todolists-reducer";
 import {RequestStatusType} from "../reducers/app-reducer";
 

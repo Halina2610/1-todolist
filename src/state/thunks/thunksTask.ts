@@ -1,4 +1,4 @@
-import {TaskPriorities, TaskStatuses, todolistsApi, UpdateTaskType} from '../../api/todolists-api';
+import {TaskPriorities, TaskStatuses, todolistApi, UpdateTaskType} from '../../api/todolistApi';
 import {
     addTaskAC, changeTaskEntityStatusAC, removeTaskAC,
     setTasksAC, updateTaskAC,
@@ -10,7 +10,7 @@ import {handleServerAppError, handleServerNetworkError} from "../utils/handleSer
 export const fetchTasksTC = (todolistId: string): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await todolistsApi.getTasks(todolistId);
+        const res = await todolistApi.getTasks(todolistId);
         dispatch(setTasksAC(res.data.items, todolistId));
         dispatch(setAppStatusAC('succeeded'))
 
@@ -27,7 +27,7 @@ export const removeTaskTC = (id: string, todoListId: string): ThunkType => async
     dispatch(setAppStatusAC('loading'))
     dispatch(changeTaskEntityStatusAC(id, todoListId, 'loading'))
     try {
-        await todolistsApi.removeTask(id, todoListId);
+        await todolistApi.removeTask(id, todoListId);
         dispatch(removeTaskAC(id, todoListId));
         dispatch(setAppStatusAC('succeeded'))
         dispatch(changeTaskEntityStatusAC(id, todoListId, 'succeeded'))
@@ -40,7 +40,7 @@ export const removeTaskTC = (id: string, todoListId: string): ThunkType => async
 export const addTaskTC = (title: string, todoListId: string): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await todolistsApi.addTask(title, todoListId);
+        const res = await todolistApi.addTask(title, todoListId);
         if (res.data.resultCode === 0) {
             dispatch(addTaskAC(res.data.data.item));
             dispatch(setAppStatusAC('succeeded'))
@@ -79,7 +79,7 @@ export const updateTaskTC = (
             ...domainModel
         };
 
-        await todolistsApi.updateTask(todolistId, taskId, model);
+        await todolistApi.updateTask(todolistId, taskId, model);
         dispatch(updateTaskAC(taskId, domainModel, todolistId));
         dispatch(setAppStatusAC('succeeded'))
         dispatch(changeTaskEntityStatusAC(taskId, todolistId, 'succeeded'))

@@ -7,7 +7,8 @@ describe('appReducer', () => {
     beforeEach(() => {
         initialState = {
             status: 'loading',
-            error: null
+            error: null,
+            isInitialized: true
         };
     });
 

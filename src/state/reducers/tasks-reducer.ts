@@ -1,4 +1,4 @@
-import {TaskType} from "../../api/todolists-api";
+import {TaskType} from "../../api/todolistApi";
 import {
     addTaskAC, changeTaskEntityStatusAC,
     removeTaskAC,

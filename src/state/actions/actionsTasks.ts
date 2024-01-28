@@ -1,4 +1,4 @@
-import { TaskType } from "../../api/todolists-api";
+import { TaskType } from "../../api/todolistApi";
 import { UpdateDomainTaskModelType } from "../thunks/thunksTask";
 import {RequestStatusType} from "../reducers/app-reducer";
 

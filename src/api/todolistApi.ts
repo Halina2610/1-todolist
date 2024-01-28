@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const instance = axios.create({
+export const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
@@ -8,7 +8,7 @@ const instance = axios.create({
     },
 });
 
-export const todolistsApi = {
+export const todolistApi = {
     getTodolists() {
         return instance.get<TodolistType[]>('todo-lists');
     },
@@ -50,6 +50,7 @@ export const todolistsApi = {
     }
 
 }
+
 
 
 export type TodolistType = {
@@ -110,3 +111,10 @@ type TasksResponseType = {
     error: string | null
 }
 
+
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}

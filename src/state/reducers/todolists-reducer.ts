@@ -1,4 +1,4 @@
-import { TodolistType } from "../../api/todolists-api";
+import { TodolistType } from "../../api/todolistApi";
 import {
     addTodolistAC, changeTodolistEntityStatusAC,
     changeTodolistFilterAC,
@@ -35,8 +35,8 @@ export const todolistsReducer = (
             return action.todolists.map(td => ({ ...td, filter: 'all', entityStatus: "idle" }));
         }
         case 'CHANGE-TODOLIST-ENTITY-STATUS' : {
-            return state.map(tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl)
-
+            return state.map(tl =>
+                tl.id === action.id ? { ...tl, entityStatus: action.status } : tl)
         }
         default:
             return state;

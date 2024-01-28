@@ -1,6 +1,6 @@
 import {ThunkType} from "../store/store";
 import {setAppStatusAC} from "../actions/actionsApp";
-import {todolistsApi} from "../../api/todolists-api";
+import {todolistApi} from "../../api/todolistApi";
 import {
     addTodolistAC,
     changeTodolistEntityStatusAC,
@@ -13,7 +13,7 @@ import {handleServerAppError, handleServerNetworkError} from "../utils/handleSer
 export const fetchTodolistsTC = (): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await todolistsApi.getTodolists();
+        const res = await todolistApi.getTodolists();
         dispatch(setTodolistsAC(res.data));
         dispatch(setAppStatusAC('succeeded'))
 
@@ -26,10 +26,9 @@ export const removeTodolistTC = (todoListId: string): ThunkType => async (dispat
     dispatch(setAppStatusAC('loading'))
     dispatch(changeTodolistEntityStatusAC(todoListId, 'loading'))
     try {
-        await todolistsApi.removeTodolist(todoListId);
+        await todolistApi.removeTodolist(todoListId);
         dispatch(removeTodolistAC(todoListId));
         dispatch(setAppStatusAC('succeeded'))
-        dispatch(changeTodolistEntityStatusAC(todoListId, 'succeeded'))
 
 
     } catch (error: any) {
@@ -41,7 +40,7 @@ export const addTodolistTC = (title: string): ThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
 
     try {
-        const res = await todolistsApi.addTodolist(title);
+        const res = await todolistApi.addTodolist(title);
         if (res.data.resultCode === 0) {
             dispatch(addTodolistAC(res.data.data.item));
             dispatch(setAppStatusAC('succeeded'))
@@ -59,7 +58,7 @@ export const updateTodolistTitleTC = (id: string, title: string): ThunkType => a
     dispatch(changeTodolistEntityStatusAC(id, 'loading'))
 
     try {
-        await todolistsApi.updateTodolist(id, title);
+        await todolistApi.updateTodolist(id, title);
         dispatch(updateTodolistTitleAC(id, title));
         dispatch(setAppStatusAC('succeeded'))
         dispatch(changeTodolistEntityStatusAC(id, 'succeeded'))
