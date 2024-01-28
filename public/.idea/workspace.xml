@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7b9b69f3-1950-4832-b3a5-a70006ba153d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useAddItemForm.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useEditableSpan.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useTasks.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/useTodolists.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../history/AppWithReducer.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../history/AppWithReducers.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../history/TaskRedux.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../history/TodolistWithRedux.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../utils/id-utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../integration/addItemForm.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../integration/addItemForm.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AppWithRedux.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../AppWithRedux.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/AddItemForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../components/AddItemForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/ButtonAppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../components/ButtonAppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/ButtonContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../components/ButtonContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/EditableSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../components/EditableSpan.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../components/Task.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../components/Todolist.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../components/Todolist.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../state/tasks-reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../state/tasks-reducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../state/tasks-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../state/tasks-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../state/todolists-reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../state/todolists-reducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../state/todolists-reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../state/todolists-reducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../state/todolists-tasks-reducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../state/todolists-tasks-reducer.test.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2ZXVdmFvFgrxqLnR9xkrMnkxlLd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/IT_INCUBATOR/Todolist",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.2.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7b9b69f3-1950-4832-b3a5-a70006ba153d" name="Changes" comment="" />
+      <created>1702568500969</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702568500969</updated>
+      <workItem from="1702568501982" duration="20000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
