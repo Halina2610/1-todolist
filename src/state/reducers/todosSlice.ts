@@ -39,8 +39,8 @@ const slice = createSlice({
       return action.payload.todolists.forEach((t) => {
         state.push({...t, filter: 'active', entityStatus: 'idle'})})
     },
-    clearTodosData: (state, action: PayloadAction<{}>) => {
-      state = []
+    clearTodosData: () => {
+      return [];
     }
   },
 })

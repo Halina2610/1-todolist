@@ -61,7 +61,7 @@ describe("todolistsReducer", () => {
   });
 
   it("should set the todolists", () => {
-    const action = todolistsActions.setTodolists({todos: state});
+    const action = todolistsActions.setTodolists({todolists: state});
     const newState = todosReducer([], action);
 
     expect(newState.length).toBe(2);

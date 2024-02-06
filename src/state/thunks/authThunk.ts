@@ -49,7 +49,7 @@ export const logoutTC = (): ThunkType => async (dispatch) => {
     if (res.data.resultCode === 0) {
       dispatch(authActions.setIsLoggedIn({isLoggedIn: false}));
       dispatch(appActions.setAppStatus({status: "succeeded"}));
-      dispatch(todolistsActions.clearTodosData([]));
+      dispatch(todolistsActions.clearTodosData());
 
     } else {
       handleServerAppError(res.data, dispatch);

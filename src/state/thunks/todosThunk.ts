@@ -13,7 +13,7 @@ export const fetchTodolistsTC = (): ThunkType => async (dispatch) => {
   dispatch(appActions.setAppStatus({status: "loading"}));
   try {
     const res = await todolistApi.getTodolists();
-    dispatch(todolistsActions.setTodolists({todos: res.data}));
+    dispatch(todolistsActions.setTodolists({todolists: res.data}));
     dispatch(appActions.setAppStatus({status:"succeeded"}));
     res.data.forEach((tl) => {
       dispatch(fetchTasksTC(tl.id))
