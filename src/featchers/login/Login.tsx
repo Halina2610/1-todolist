@@ -8,17 +8,19 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
-import { useAppDispatch, useAppSelector } from "state/store/store";
+import { useAppDispatch } from "state/store/store";
 import { LoginParamsType } from "api/todolistApi";
 import { useNavigate } from "react-router-dom";
-import { loginTC } from "state/thunks/thunkAuth";
+import { loginTC } from "state/thunks/authThunk";
+import { selectIsLoggedIn } from "state/selectors/auth.selectors";
+import { useSelector } from "react-redux";
 
 export const Login = () => {
+
   const dispatch = useAppDispatch();
-
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn);
-
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     if (isLoggedIn) {

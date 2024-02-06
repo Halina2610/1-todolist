@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Fab, TextField } from "@mui/material";
 import { Edit as EditIcon } from "@mui/icons-material";
 import useAddItemForm from "../../hooks/useAddItemForm";
-import { RequestStatusType } from "state/reducers/app-reducer";
+import { RequestStatusType } from "state/reducers/appSlice";
 
 type AddItemFormProps = {
   addItem: (title: string) => void;
@@ -13,7 +13,7 @@ export const AddItemForm = memo((props: AddItemFormProps) => {
   const { title, error, addItem, onChangeHandler, onKeyPressHandler } =
     useAddItemForm(props.addItem);
   return (
-    <div>
+    <div style={{margin: '10px'}}>
       <TextField
         value={title}
         onChange={onChangeHandler}

@@ -1,53 +1,23 @@
-import { ActionsTaskType, tasksReducer } from "../reducers/tasks-reducer";
+import { tasksSlice } from "state/reducers/tasksSlice";
 import {
-  ActionsTodolistType,
-  todolistsReducer,
-} from "../reducers/todolists-reducer";
-import {
-  AnyAction,
-  applyMiddleware,
-  combineReducers,
-  legacy_createStore,
-} from "redux";
-import thunkMiddleware, { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { appReducer, AppReducerActionsType } from "../reducers/app-reducer";
-import { authReducer } from "../reducers/auth-reducer";
-import { AuthActionsType } from "../thunks/thunkAuth";
+  todosReducer,
+} from "state/reducers/todosSlice";
 
-const rootReducer = combineReducers({
-  tasks: tasksReducer,
-  todolists: todolistsReducer,
-  app: appReducer,
-  auth: authReducer,
-});
+import  { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { useDispatch } from "react-redux";
+import { appSlice } from "state/reducers/appSlice";
+import { authSlice } from "state/reducers/authSlice";
+import { configureStore, UnknownAction } from "@reduxjs/toolkit";
 
-export const store = legacy_createStore(
-  rootReducer,
-  applyMiddleware(thunkMiddleware),
-);
+export const store = configureStore({reducer:{
+    tasks: tasksSlice,
+    todos: todosReducer,
+    app: appSlice,
+    auth: authSlice }})
 
-export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
-export const useAppSelector: TypedUseSelectorHook<AppRootStateType> =
-  useSelector;
+export type AppRootStateType = ReturnType<typeof store.getState>
 
-// @ts-ignore
-window.store = store;
+export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, UnknownAction>
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 
-// types
-export type AppRootStateType = ReturnType<typeof rootReducer>;
-
-export type AppActionsType =
-  | ActionsTaskType
-  | ActionsTodolistType
-  | AppReducerActionsType
-  | AuthActionsType;
-
-export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>;
-
-export type ThunkType = ThunkAction<
-  void,
-  AppRootStateType,
-  unknown,
-  AppActionsType
->;
+export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, UnknownAction>

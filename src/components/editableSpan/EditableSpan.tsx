@@ -1,12 +1,12 @@
 import React, { memo } from "react";
 import { TextField } from "@mui/material";
 import useEditableSpan from "../../hooks/useEditableSpan";
-import { RequestStatusType } from "state/reducers/app-reducer";
+import { RequestStatusType } from "state/reducers/appSlice";
 
 type EditableSpanPropsType = {
   value: string;
   onChange: (newValue: string) => void;
-  entityStatus?: RequestStatusType;
+  entityStatus?: string;
 };
 
 export const EditableSpan = memo((props: EditableSpanPropsType) => {

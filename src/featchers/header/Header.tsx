@@ -8,13 +8,15 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { memo, useCallback } from "react";
 import LinearProgress from "@mui/material/LinearProgress/LinearProgress";
-import { useAppDispatch, useAppSelector } from "state/store/store";
-import { RequestStatusType } from "state/reducers/app-reducer";
-import { logoutTC } from "state/thunks/thunkAuth";
+import { useAppDispatch } from "state/store/store";
+import { logoutTC } from "state/thunks/authThunk";
+import { useSelector } from "react-redux";
+import { selectAppStatus } from "state/selectors/app.selectors";
+import { selectIsLoggedIn } from "state/selectors/auth.selectors";
 
 export const Header = memo(() => {
-  const status = useAppSelector<RequestStatusType>((state) => state.app.status);
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn);
+  const status = useSelector(selectAppStatus);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
 
   const logoutHandler = useCallback(() => {

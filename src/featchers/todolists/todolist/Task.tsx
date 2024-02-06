@@ -4,8 +4,8 @@ import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { EditableSpan } from "components/editableSpan/EditableSpan";
 import { TaskStatuses, TaskType } from "api/todolistApi";
-import { RequestStatusType } from "state/reducers/app-reducer";
-import { useAppSelector } from "state/store/store";
+import { useSelector } from "react-redux";
+import { selectAppStatus } from "state/selectors/app.selectors";
 
 type TaskPropsType = {
   changeTaskStatus: (
@@ -27,9 +27,8 @@ export const Task = memo((props: TaskPropsType) => {
     () => props.removeTask(props.task.id, props.todolistId),
     [props.task.id, props.todolistId],
   );
-  const entityStatus = useAppSelector<RequestStatusType>(
-    (state) => state.app.status,
-  );
+  const entityStatus = useSelector(selectAppStatus);
+
 
   const onChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

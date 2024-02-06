@@ -1,22 +1,23 @@
 import React, { memo, useEffect } from "react";
 import "./App.css";
 import { Header } from "featchers/header/Header";
-import { Todolists } from "featchers/todolists/Todolists";
+import { TodoLists } from "featchers/todolists/TodoLists";
 import { Login } from "featchers/login/Login";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Error404 } from "featchers/error404/error404";
-import { useAppDispatch, useAppSelector } from "state/store/store";
+import { useAppDispatch } from "state/store/store";
 import { CircularProgress } from "@mui/material";
-import { initializedAppTC } from "state/thunks/thunkAuth";
+import { initializeAppTC } from "state/thunks/authThunk";
+import { useSelector } from "react-redux";
+import { selectIsInitialized } from "state/selectors/app.selectors";
 
 export const App = memo(() => {
-  const isInitialized = useAppSelector<boolean>(
-    (state) => state.app.isInitialized,
-  );
+
+  const isInitialized = useSelector(selectIsInitialized);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(initializedAppTC());
+    dispatch(initializeAppTC());
   }, []);
 
   if (!isInitialized) {
@@ -39,7 +40,7 @@ export const App = memo(() => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Todolists />} />
+          <Route path="/" element={<TodoLists />} />
           <Route path="/login" element={<Login />} />
           <Route path="/error404" element={<Error404 />} />
           <Route path="*" element={<Navigate to="/error404" />} />

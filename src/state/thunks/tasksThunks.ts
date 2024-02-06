@@ -4,31 +4,25 @@ import {
   todolistApi,
   UpdateTaskType,
 } from "api/todolistApi";
-import {
-  addTaskAC,
-  changeTaskEntityStatusAC,
-  removeTaskAC,
-  setTasksAC,
-  updateTaskAC,
-} from "../actions/actionsTasks";
 import { ThunkType } from "../store/store";
-import { setAppErrorAC, setAppStatusAC } from "../actions/actionsApp";
 import {
   handleServerAppError,
   handleServerNetworkError,
 } from "../utils/handleServerAppError";
+import { appActions } from "state/reducers/appSlice";
+import { taskActions } from "state/reducers/tasksSlice";
 
 export const fetchTasksTC =
   (todolistId: string): ThunkType =>
   async (dispatch) => {
-    dispatch(setAppStatusAC("loading"));
+    dispatch(appActions.setAppStatus({status:"loading"}));
     try {
       const res = await todolistApi.getTasks(todolistId);
-      dispatch(setTasksAC(res.data.items, todolistId));
-      dispatch(setAppStatusAC("succeeded"));
+      dispatch(taskActions.setTasks({ tasks: res.data.items, todolistId}));
+      dispatch(appActions.setAppStatus({status:"succeeded"}));
 
       if (res.data.error !== null) {
-        dispatch(setAppErrorAC(res.data.error));
+        dispatch(appActions.setAppError({error: res.data.error}));
         console.error(res.data.totalCount);
       }
     } catch (error: any) {
@@ -39,27 +33,27 @@ export const fetchTasksTC =
 export const removeTaskTC =
   (id: string, todoListId: string): ThunkType =>
   async (dispatch) => {
-    dispatch(setAppStatusAC("loading"));
-    dispatch(changeTaskEntityStatusAC(id, todoListId, "loading"));
+    dispatch(appActions.setAppStatus({status: "loading"}));
     try {
       await todolistApi.removeTask(id, todoListId);
-      dispatch(removeTaskAC(id, todoListId));
-      dispatch(setAppStatusAC("succeeded"));
-      dispatch(changeTaskEntityStatusAC(id, todoListId, "succeeded"));
+      dispatch(taskActions.removeTask({taskId: id, todolistId: todoListId}));
+      dispatch(appActions.setAppStatus({status:"succeeded"}));
     } catch (error: any) {
       handleServerNetworkError(error, dispatch);
     }
   };
 
+
+
 export const addTaskTC =
   (title: string, todoListId: string): ThunkType =>
   async (dispatch) => {
-    dispatch(setAppStatusAC("loading"));
+    dispatch(appActions.setAppStatus({status: "loading"}));
     try {
       const res = await todolistApi.addTask(title, todoListId);
       if (res.data.resultCode === 0) {
-        dispatch(addTaskAC(res.data.data.item));
-        dispatch(setAppStatusAC("succeeded"));
+        dispatch(taskActions.addTask({task: res.data.data.item, todolistId: res.data.data.item.todoListId }));
+        dispatch(appActions.setAppStatus({status:"succeeded"}));
       } else {
         handleServerAppError(res.data, dispatch);
       }
@@ -75,8 +69,8 @@ export const updateTaskTC =
     todolistId: string,
   ): ThunkType =>
   async (dispatch, getState) => {
-    dispatch(setAppStatusAC("loading"));
-    dispatch(changeTaskEntityStatusAC(taskId, todolistId, "loading"));
+    dispatch(appActions.setAppStatus({status: "loading"}));
+    dispatch(taskActions.changeTaskEntityStatus({taskId, todolistId, entityStatus: "loading"}));
 
     try {
       const task = getState().tasks[todolistId].find((t) => t.id === taskId);
@@ -96,9 +90,9 @@ export const updateTaskTC =
       };
 
       await todolistApi.updateTask(todolistId, taskId, model);
-      dispatch(updateTaskAC(taskId, domainModel, todolistId));
-      dispatch(setAppStatusAC("succeeded"));
-      dispatch(changeTaskEntityStatusAC(taskId, todolistId, "succeeded"));
+      dispatch(taskActions.updateTask({taskId, model: domainModel, todolistId}));
+      dispatch(appActions.setAppStatus({status:"succeeded"}));
+      dispatch(taskActions.changeTaskEntityStatus({taskId, todolistId, entityStatus: "succeeded"}));
     } catch (error: any) {
       handleServerNetworkError(error, dispatch);
     }

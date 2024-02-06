@@ -1,17 +1,15 @@
 import React, { memo, useCallback, useEffect } from "react";
 import {
-  FilterValuesType,
-  TodolistDomainType,
-} from "state/reducers/todolists-reducer";
-import { TaskStateType } from "state/reducers/tasks-reducer";
-import { useAppDispatch, useAppSelector } from "state/store/store";
+  FilterValuesType, todolistsActions
+} from "state/reducers/todosSlice";
+import { useAppDispatch } from "state/store/store";
 import { Container, Grid, Paper } from "@mui/material";
 import {
   addTaskTC,
   removeTaskTC,
   updateTaskTC,
-} from "state/thunks/thunksTask";
-import { Todolist } from "./todolist/Todolist";
+} from "state/thunks/tasksThunks";
+import { Todos } from "featchers/todolists/todolist/Todos";
 import { TaskStatuses } from "api/todolistApi";
 import { AddItemForm } from "components/addItemForm/AddItemForm";
 import {
@@ -19,17 +17,18 @@ import {
   fetchTodolistsTC,
   removeTodolistTC,
   updateTodolistTitleTC,
-} from "state/thunks/thunkTodolist";
-import { changeTodolistFilterAC } from "state/actions/actionsTodolists";
+} from "state/thunks/todosThunk";
 import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "state/selectors/auth.selectors";
+import { selectTasks } from "state/selectors/tasks.selectors";
+import { selectTodolists } from "state/selectors/todos.selectors";
 
-export const Todolists = memo(() => {
-  const todolists = useAppSelector<Array<TodolistDomainType>>(
-    (state) => state.todolists,
-  );
-  const tasks = useAppSelector<TaskStateType>((state) => state.tasks);
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn);
+export const TodoLists = memo(() => {
+  const todolists = useSelector(selectTodolists);
+  const tasks = useSelector(selectTasks);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -94,22 +93,22 @@ export const Todolists = memo(() => {
 
   const changeFilter = useCallback(
     (todoListId: string, filter: FilterValuesType) => {
-      dispatch(changeTodolistFilterAC(todoListId, filter));
+      dispatch(todolistsActions.changeTodolistFilter({id: todoListId, filter}));
     },
     [dispatch],
   );
 
   return (
     <Container fixed>
-      <Grid container style={{ padding: "10px", margin: "50px 0" }}>
+      <Grid container style={{ marginTop: "10px" }}>
         <AddItemForm addItem={addTodolist} />
       </Grid>
       <Grid container spacing={3}>
         {todolists.map((tl) => {
           return (
             <Grid item key={tl.id}>
-              <Paper style={{ padding: "10px" }}>
-                <Todolist
+              <Paper style={{ paddingTop: "10px" }}>
+                <Todos
                   todolist={tl}
                   tasks={tasks[tl.id]}
                   removeTask={removeTask}

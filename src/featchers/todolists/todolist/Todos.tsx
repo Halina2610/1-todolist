@@ -9,7 +9,7 @@ import { TaskStatuses, TaskType } from "api/todolistApi";
 import {
   FilterValuesType,
   TodolistDomainType,
-} from "state/reducers/todolists-reducer";
+} from "state/reducers/todosSlice";
 
 type PropsType = {
   todolist: TodolistDomainType;
@@ -31,7 +31,7 @@ type PropsType = {
   changeTodolistTitle: (id: string, newTitle: string) => void;
 };
 
-export const Todolist = memo(function (props: PropsType) {
+export const Todos = memo(function (props: PropsType) {
 
   const addTask = useCallback(
     (title: string) => {

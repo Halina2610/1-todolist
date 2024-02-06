@@ -1,19 +1,14 @@
 import {
-  todolistsReducer,
+  todosReducer,
   FilterValuesType,
-  TodolistDomainType,
-} from "../todolists-reducer";
-import {
-  changeTodolistFilterAC,
-  removeTodolistAC,
-  setTodolistsAC,
-  updateTodolistTitleAC,
-} from "../../actions/actionsTodolists";
+  TodolistDomainType, todolistsActions
+} from "state/reducers/todosSlice";
+
 
 const state: Array<TodolistDomainType> = [
   {
     id: "1",
-    title: "First Todolist",
+    title: "First Todos",
     order: 0,
     addedDate: "",
     filter: "all",
@@ -21,7 +16,7 @@ const state: Array<TodolistDomainType> = [
   },
   {
     id: "2",
-    title: "Second Todolist",
+    title: "Second Todos",
     order: 0,
     addedDate: "",
     filter: "all",
@@ -38,8 +33,8 @@ describe("todolistsReducer", () => {
 
   it("should remove a todolist", () => {
     const todolistId = "1";
-    const action = removeTodolistAC(todolistId);
-    const newState = todolistsReducer(state, action);
+    const action = todolistsActions.removeTodolist({id: todolistId});
+    const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(1);
     expect(newState[0].id).toBe("2");
@@ -47,9 +42,9 @@ describe("todolistsReducer", () => {
 
   it("should change the title of a todolist", () => {
     const todolistId = "1";
-    const newTitle = "Updated Todolist";
-    const action = updateTodolistTitleAC(todolistId, newTitle);
-    const newState = todolistsReducer(state, action);
+    const newTitle = "Updated Todos";
+    const action = todolistsActions.changeTodolistTitle ({id: todolistId, title: newTitle});
+    const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(2);
     expect(newState[0].title).toBe(newTitle);
@@ -58,20 +53,20 @@ describe("todolistsReducer", () => {
   it("should change the filter of a todolist", () => {
     const todolistId = "1";
     const newFilter: FilterValuesType = "active";
-    const action = changeTodolistFilterAC(todolistId, newFilter);
-    const newState = todolistsReducer(state, action);
+    const action = todolistsActions.changeTodolistFilter({ id: todolistId, filter: newFilter});
+    const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(2);
     expect(newState[0].filter).toBe(newFilter);
   });
 
   it("should set the todolists", () => {
-    const action = setTodolistsAC(state);
-    const newState = todolistsReducer([], action);
+    const action = todolistsActions.setTodolists({todos: state});
+    const newState = todosReducer([], action);
 
     expect(newState.length).toBe(2);
-    expect(newState[0].title).toBe("First Todolist");
-    expect(newState[1].title).toBe("Second Todolist");
+    expect(newState[0].title).toBe("First Todos");
+    expect(newState[1].title).toBe("Second Todos");
     expect(newState[0].filter).toBe("all");
     expect(newState[1].filter).toBe("all");
   });
