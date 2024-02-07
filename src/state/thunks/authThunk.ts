@@ -9,6 +9,7 @@ import { authActions } from "state/reducers/authSlice";
 import { appActions } from "state/reducers/appSlice";
 import { todolistsActions } from "state/reducers/todosSlice";
 import { Dispatch } from "redux";
+import { taskActions } from "state/reducers/tasksSlice";
 
 export const initializeAppTC = () => async (dispatch: Dispatch) => {
   try {
@@ -50,6 +51,7 @@ export const logoutTC = (): ThunkType => async (dispatch) => {
       dispatch(authActions.setIsLoggedIn({isLoggedIn: false}));
       dispatch(appActions.setAppStatus({status: "succeeded"}));
       dispatch(todolistsActions.clearTodosData());
+      dispatch(taskActions.clearTaskData());
 
     } else {
       handleServerAppError(res.data, dispatch);

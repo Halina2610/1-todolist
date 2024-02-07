@@ -48,6 +48,10 @@ const slice = createSlice({
       state[todolistId] = state[todolistId].map((task) =>
         task.id === taskId ? { ...task, entityStatusTask: entityStatus } : task
       );
+
+    },
+    clearTaskData: () => {
+      return {};
     }
   },
   extraReducers: (builder) => {
