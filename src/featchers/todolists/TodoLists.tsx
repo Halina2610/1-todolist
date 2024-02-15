@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect } from "react";
 import {
   FilterValuesType, todolistsActions
-} from "state/reducers/todosSlice";
+} from "state/reducers/todos-reducer";
 import { useAppDispatch } from "state/store/store";
 import { Container, Grid, Paper } from "@mui/material";
 import {

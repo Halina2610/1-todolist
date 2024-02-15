@@ -9,7 +9,7 @@ import { TaskStatuses, TaskType } from "api/todolistApi";
 import {
   FilterValuesType,
   TodolistDomainType,
-} from "state/reducers/todosSlice";
+} from "state/reducers/todos-reducer";
 
 type PropsType = {
   todolist: TodolistDomainType;

@@ -1,6 +1,6 @@
 import { TaskType } from "api/todolistApi";
-import { RequestStatusType } from "state/reducers/appSlice";
-import { todolistsActions } from "state/reducers/todosSlice";
+import { RequestStatusType } from "state/reducers/app-reducer";
+import { todolistsActions } from "state/reducers/todos-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UpdateDomainTaskModelType } from "state/thunks/tasksThunks";
 
@@ -71,7 +71,7 @@ const slice = createSlice({
 });
 
 
-export const tasksSlice = slice.reducer
+export const tasksReducer = slice.reducer
 export const taskActions = slice.actions
 
 //types

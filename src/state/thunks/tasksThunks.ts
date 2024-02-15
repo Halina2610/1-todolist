@@ -9,8 +9,8 @@ import {
   handleServerAppError,
   handleServerNetworkError,
 } from "../utils/handleServerAppError";
-import { appActions } from "state/reducers/appSlice";
-import { taskActions } from "state/reducers/tasksSlice";
+import { appActions } from "state/reducers/app-reducer";
+import { taskActions } from "state/reducers/tasks-reducer";
 
 export const fetchTasksTC =
   (todolistId: string): ThunkType =>

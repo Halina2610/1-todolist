@@ -4,7 +4,7 @@ import { todolistId1, todolistId2 } from "state/utils/id-utils";
 import {
   FilterValuesType,
   TodolistDomainType,
-} from "state/reducers/todosSlice";
+} from "state/reducers/todos-reducer";
 
 export default function useTodolists(
   onTodolistRemoved: (id: string) => void,

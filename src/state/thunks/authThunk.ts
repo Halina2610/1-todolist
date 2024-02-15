@@ -5,11 +5,11 @@ import {
 import { ThunkType } from "../store/store";
 import { authApi } from "api/authApi";
 import { LoginParamsType } from "api/todolistApi";
-import { authActions } from "state/reducers/authSlice";
-import { appActions } from "state/reducers/appSlice";
-import { todolistsActions } from "state/reducers/todosSlice";
+import { authActions } from "state/reducers/auth-reducer";
+import { appActions } from "state/reducers/app-reducer";
+import { todolistsActions } from "state/reducers/todos-reducer";
 import { Dispatch } from "redux";
-import { taskActions } from "state/reducers/tasksSlice";
+import { taskActions } from "state/reducers/tasks-reducer";
 
 export const initializeAppTC = () => async (dispatch: Dispatch) => {
   try {

@@ -1,4 +1,5 @@
-import { instance, LoginParamsType, ResponseType } from "./todolistApi";
+import { LoginParamsType, ResponseType } from "./todolistApi";
+import { instance } from "api/utils/instance";
 
 export const authApi = {
   me() {

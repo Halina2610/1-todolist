@@ -1,19 +1,19 @@
-import { tasksSlice } from "state/reducers/tasksSlice";
+import { tasksReducer } from "state/reducers/tasks-reducer";
 import {
   todosReducer,
-} from "state/reducers/todosSlice";
+} from "state/reducers/todos-reducer";
 
 import  { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { useDispatch } from "react-redux";
-import { appSlice } from "state/reducers/appSlice";
-import { authSlice } from "state/reducers/authSlice";
+import { appReducer } from "state/reducers/app-reducer";
+import { authReducer } from "state/reducers/auth-reducer";
 import { configureStore, UnknownAction } from "@reduxjs/toolkit";
 
 export const store = configureStore({reducer:{
-    tasks: tasksSlice,
+    tasks: tasksReducer,
     todos: todosReducer,
-    app: appSlice,
-    auth: authSlice }})
+    app: appReducer,
+    auth: authReducer }})
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 

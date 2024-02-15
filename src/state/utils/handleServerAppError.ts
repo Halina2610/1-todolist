@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { ResponseType } from "api/todolistApi";
-import { appActions } from "state/reducers/appSlice";
+import { appActions } from "state/reducers/app-reducer";
 
 // generic function
 export const handleServerAppError = <T>(

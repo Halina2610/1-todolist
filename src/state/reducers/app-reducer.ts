@@ -22,7 +22,7 @@ const slice = createSlice({
 }
 
 )
-export const appSlice = slice.reducer
+export const appReducer = slice.reducer
 export const appActions = slice.actions
 
 

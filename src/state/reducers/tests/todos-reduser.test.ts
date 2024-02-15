@@ -2,7 +2,7 @@ import {
   todosReducer,
   FilterValuesType,
   TodolistDomainType, todolistsActions
-} from "state/reducers/todosSlice";
+} from "state/reducers/todos-reducer";
 
 
 const state: Array<TodolistDomainType> = [
@@ -67,7 +67,7 @@ describe("todolistsReducer", () => {
     expect(newState.length).toBe(2);
     expect(newState[0].title).toBe("First Todos");
     expect(newState[1].title).toBe("Second Todos");
-    expect(newState[0].filter).toBe("all");
-    expect(newState[1].filter).toBe("all");
+    expect(newState[0].filter).toBe("active");
+    expect(newState[1].filter).toBe("active");
   });
 });

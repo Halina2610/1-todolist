@@ -6,8 +6,8 @@ import {
   handleServerNetworkError,
 } from "../utils/handleServerAppError";
 import { fetchTasksTC } from "state/thunks/tasksThunks";
-import { appActions } from "state/reducers/appSlice";
-import { todolistsActions } from "state/reducers/todosSlice";
+import { appActions } from "state/reducers/app-reducer";
+import { todolistsActions } from "state/reducers/todos-reducer";
 
 export const fetchTodolistsTC = (): ThunkType => async (dispatch) => {
   dispatch(appActions.setAppStatus({status: "loading"}));

@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Fab, TextField } from "@mui/material";
 import { Edit as EditIcon } from "@mui/icons-material";
 import useAddItemForm from "../../hooks/useAddItemForm";
-import { RequestStatusType } from "state/reducers/appSlice";
+import { RequestStatusType } from "state/reducers/app-reducer";
 
 type AddItemFormProps = {
   addItem: (title: string) => void;
