@@ -1,17 +1,10 @@
 import React, { memo, useCallback, useEffect } from "react";
 import {
-  FilterValuesType, todolistsActions
+  FilterValuesType, todosActions, todosThunks
 } from "featchers/todolists/todos-reducer";
-import { useAppDispatch } from "app/store";
 import { Container, Grid, Paper } from "@mui/material";
 import { Todos } from "featchers/todolists/todolist/Todos";
 import { AddItemForm } from "components/addItemForm/AddItemForm";
-import {
-  addTodolistTC,
-  fetchTodolistsTC,
-  removeTodolistTC,
-  updateTodolistTitleTC,
-} from "featchers/todolists/todos-thunk";
 import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -20,6 +13,7 @@ import { selectTasks } from "featchers/todolists/todolist/tasks.selectors";
 import { selectTodolists } from "featchers/todolists/todos.selectors";
 import { TaskStatuses } from "enums";
 import { taskThunk } from "featchers/todolists/todolist/tasks-reducer";
+import { useAppDispatch } from "hooks/useAppDispatch";
 
 export const Todolists = memo(() => {
   const todolists = useSelector(selectTodolists);
@@ -32,15 +26,15 @@ export const Todolists = memo(() => {
     if (!isLoggedIn) {
       navigate("/login");
     } else {
-      dispatch(fetchTodolistsTC());
+      dispatch(todosThunks.fetchTodolists());
     }
-  }, [dispatch, isLoggedIn, navigate]);
+  }, []);
 
 
 
   const removeTodolist = useCallback(
     (todoListId: string) => {
-      dispatch(removeTodolistTC(todoListId));
+      dispatch(todosThunks.removeTodolist(todoListId));
     },
     [dispatch],
   );
@@ -54,7 +48,7 @@ export const Todolists = memo(() => {
 
   const addTodolist = useCallback(
     (title: string) => {
-      dispatch(addTodolistTC(title));
+      dispatch(todosThunks.addTodolist(title));
     },
     [dispatch],
   );
@@ -68,7 +62,7 @@ export const Todolists = memo(() => {
 
   const changeTodolistTitle = useCallback(
     (id: string, title: string) => {
-      dispatch(updateTodolistTitleTC(id, title));
+      dispatch(todosThunks.updateTodolistTitle({id, title}));
     },
     [dispatch],
   );
@@ -89,7 +83,7 @@ export const Todolists = memo(() => {
 
   const changeFilter = useCallback(
     (todoListId: string, filter: FilterValuesType) => {
-      dispatch(todolistsActions.changeTodolistFilter({ id: todoListId, filter }));
+      dispatch(todosActions.changeTodolistFilter({ id: todoListId, filter }));
     },
     [dispatch],
   );

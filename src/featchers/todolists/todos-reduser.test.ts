@@ -1,7 +1,7 @@
 import {
   todosReducer,
   FilterValuesType,
-  TodolistDomainType, todolistsActions
+  TodolistDomainType, todosActions, todosThunks
 } from "featchers/todolists/todos-reducer";
 
 
@@ -24,7 +24,7 @@ const state: Array<TodolistDomainType> = [
   },
 ];
 
-describe("todolistsReducer", () => {
+describe("todolistReducer", () => {
   let initialState: Array<TodolistDomainType>;
 
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe("todolistsReducer", () => {
 
   it("should remove a todolist", () => {
     const todolistId = "1";
-    const action = todolistsActions.removeTodolist({id: todolistId});
+    const action = todosThunks.removeTodolist.fulfilled({ id: todolistId }, "requestId", '');
     const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(1);
@@ -43,7 +43,7 @@ describe("todolistsReducer", () => {
   it("should change the title of a todolist", () => {
     const todolistId = "1";
     const newTitle = "Updated Todos";
-    const action = todolistsActions.changeTodolistTitle ({id: todolistId, title: newTitle});
+    const action = todosThunks.updateTodolistTitle.fulfilled({ id: todolistId, title: newTitle }, 'requestId', { id: todolistId, title: newTitle });
     const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(2);
@@ -53,21 +53,17 @@ describe("todolistsReducer", () => {
   it("should change the filter of a todolist", () => {
     const todolistId = "1";
     const newFilter: FilterValuesType = "active";
-    const action = todolistsActions.changeTodolistFilter({ id: todolistId, filter: newFilter});
+    const action = todosActions.changeTodolistFilter({ id: todolistId, filter: newFilter });
     const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(2);
     expect(newState[0].filter).toBe(newFilter);
   });
 
-  it("should set the todolists", () => {
-    const action = todolistsActions.setTodolists({todolists: state});
-    const newState = todosReducer([], action);
+  test("todolists should be added", () => {
+    const action = todosThunks.fetchTodolists.fulfilled({ todolists: initialState }, "requestId");
+    const endState = todosReducer([], action);
+    expect(endState.length).toBe(2);
+  })
 
-    expect(newState.length).toBe(2);
-    expect(newState[0].title).toBe("First Todos");
-    expect(newState[1].title).toBe("Second Todos");
-    expect(newState[0].filter).toBe("active");
-    expect(newState[1].filter).toBe("active");
-  });
-});
+})

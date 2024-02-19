@@ -8,12 +8,12 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
-import { useAppDispatch } from "app/store";
 import { LoginParamsType } from "api/todolistApi";
 import { useNavigate } from "react-router-dom";
 import { loginTC } from "featchers/auth/auth-thunk";
 import { selectIsLoggedIn } from "featchers/auth/auth.selectors";
 import { useSelector } from "react-redux";
+import { useAppDispatch } from "hooks/useAppDispatch";
 
 export const Login = () => {
 

@@ -6,7 +6,7 @@ import { authApi } from "api/authApi";
 import { LoginParamsType } from "api/todolistApi";
 import { authActions } from "featchers/auth/auth-reducer";
 import { appActions } from "app/app-reducer";
-import { todolistsActions } from "featchers/todolists/todos-reducer";
+import { todosActions } from "featchers/todolists/todos-reducer";
 import { Dispatch } from "redux";
 import { taskActions } from "featchers/todolists/todolist/tasks-reducer";
 import { handleServerNetworkError } from "utils/handle-server-network-error";
@@ -50,7 +50,7 @@ export const logoutTC = (): ThunkType => async (dispatch) => {
     if (res.data.resultCode === 0) {
       dispatch(authActions.setIsLoggedIn({isLoggedIn: false}));
       dispatch(appActions.setAppStatus({status: "succeeded"}));
-      dispatch(todolistsActions.clearTodosData());
+      dispatch(todosActions.clearTodosData());
       dispatch(taskActions.clearTaskData());
 
     } else {

@@ -16,7 +16,7 @@ export const todolistApi = {
   },
 
   updateTodolist(id: string, title: string) {
-    return commonTs.put<TodolistType[]>(`todo-lists/${id}`, { title });
+    return commonTs.put<ResponseType>(`todo-lists/${id}`, { title });
   },
 
   removeTodolist(todolistId: string) {
@@ -55,9 +55,6 @@ export type TodolistType = {
   addedDate: string;
   order: number;
 };
-
-
-
 
 
 export type TaskType = {

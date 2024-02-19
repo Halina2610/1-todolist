@@ -5,11 +5,11 @@ import { Todolists } from "featchers/todolists/Todolists";
 import { Login } from "featchers/auth/login/Login";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Error404 } from "featchers/error404/error404";
-import { useAppDispatch } from "app/store";
 import { CircularProgress } from "@mui/material";
 import { initializeAppTC } from "featchers/auth/auth-thunk";
 import { useSelector } from "react-redux";
 import { selectIsInitialized } from "app/app.selectors";
+import { useAppDispatch } from "hooks/useAppDispatch";
 
 export const App = memo(() => {
 
