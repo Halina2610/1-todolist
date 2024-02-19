@@ -8,11 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { memo, useCallback } from "react";
 import LinearProgress from "@mui/material/LinearProgress/LinearProgress";
-import { useAppDispatch } from "state/store/store";
-import { logoutTC } from "state/thunks/authThunk";
+import { useAppDispatch } from "app/store";
+import { logoutTC } from "featchers/auth/auth-thunk";
 import { useSelector } from "react-redux";
-import { selectAppStatus } from "state/selectors/app.selectors";
-import { selectIsLoggedIn } from "state/selectors/auth.selectors";
+import { selectAppStatus } from "app/app.selectors";
+import { selectIsLoggedIn } from "featchers/auth/auth.selectors";
 
 export const Header = memo(() => {
   const status = useSelector(selectAppStatus);
@@ -21,7 +21,7 @@ export const Header = memo(() => {
 
   const logoutHandler = useCallback(() => {
     dispatch(logoutTC());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -1,13 +1,13 @@
-import { ThunkType } from "../store/store";
+import { ThunkType } from "app/store";
 import { todolistApi } from "api/todolistApi";
 
 import {
   handleServerAppError,
-  handleServerNetworkError,
-} from "../utils/handleServerAppError";
-import { fetchTasksTC } from "state/thunks/tasksThunks";
-import { appActions } from "state/reducers/app-reducer";
-import { todolistsActions } from "state/reducers/todos-reducer";
+} from "utils/handle-server-app-error";
+import { appActions } from "app/app-reducer";
+import { todolistsActions } from "featchers/todolists/todos-reducer";
+import { handleServerNetworkError } from "utils/handle-server-network-error";
+import { taskThunk } from "featchers/todolists/todolist/tasks-reducer";
 
 export const fetchTodolistsTC = (): ThunkType => async (dispatch) => {
   dispatch(appActions.setAppStatus({status: "loading"}));
@@ -16,7 +16,7 @@ export const fetchTodolistsTC = (): ThunkType => async (dispatch) => {
     dispatch(todolistsActions.setTodolists({todolists: res.data}));
     dispatch(appActions.setAppStatus({status:"succeeded"}));
     res.data.forEach((tl) => {
-      dispatch(fetchTasksTC(tl.id))
+      dispatch(taskThunk.fetchTasks(tl.id))
     })
 
   } catch (error: any) {

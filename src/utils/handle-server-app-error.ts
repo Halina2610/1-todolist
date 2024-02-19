@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
-import { ResponseType } from "api/todolistApi";
-import { appActions } from "state/reducers/app-reducer";
+import { ResponseType } from "types/common.types";
+import { appActions } from "app/app-reducer";
 
 // generic function
 export const handleServerAppError = <T>(
@@ -15,12 +15,4 @@ export const handleServerAppError = <T>(
   dispatch(appActions.setAppStatus({status:"failed"}));
 };
 
-export const handleServerNetworkError = (
-  error: { message: string },
-  dispatch: Dispatch,
-) => {
-  dispatch(appActions.setAppError({error: error.message}));
-  dispatch(appActions.setAppStatus({status:"failed"}));
-
-};
 

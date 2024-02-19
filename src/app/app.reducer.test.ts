@@ -1,4 +1,4 @@
-import { appActions, appReducer, RequestStatusType } from "state/reducers/app-reducer";
+import { appActions, appReducer, RequestStatusType } from "app/app-reducer";
 
 describe("appReducer", () => {
   const initialState = {

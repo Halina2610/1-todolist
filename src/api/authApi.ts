@@ -1,15 +1,16 @@
-import { LoginParamsType, ResponseType } from "./todolistApi";
-import { instance } from "api/utils/instance";
+import { LoginParamsType } from "./todolistApi";
+import { commonTs } from "api/common.ts.";
+import {ResponseType} from "types/common.types";
 
 export const authApi = {
   me() {
-    return instance.get<AuthResponseType>("auth/me");
+    return commonTs.get<AuthResponseType>("auth/me");
   },
   login(data: LoginParamsType) {
-    return instance.post<ResponseType<{ userId?: number }>>("auth/login", data);
+    return commonTs.post<ResponseType<{ userId?: number }>>("auth/login", data);
   },
   logout() {
-    return instance.delete<ResponseType<{ userId?: number }>>("auth/login");
+    return commonTs.delete<ResponseType<{ userId?: number }>>("auth/login");
   },
 };
 

@@ -1,31 +1,27 @@
 import React, { memo, useCallback, useEffect } from "react";
 import {
   FilterValuesType, todolistsActions
-} from "state/reducers/todos-reducer";
-import { useAppDispatch } from "state/store/store";
+} from "featchers/todolists/todos-reducer";
+import { useAppDispatch } from "app/store";
 import { Container, Grid, Paper } from "@mui/material";
-import {
-  addTaskTC,
-  removeTaskTC,
-  updateTaskTC,
-} from "state/thunks/tasksThunks";
 import { Todos } from "featchers/todolists/todolist/Todos";
-import { TaskStatuses } from "api/todolistApi";
 import { AddItemForm } from "components/addItemForm/AddItemForm";
 import {
   addTodolistTC,
   fetchTodolistsTC,
   removeTodolistTC,
   updateTodolistTitleTC,
-} from "state/thunks/todosThunk";
+} from "featchers/todolists/todos-thunk";
 import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "state/selectors/auth.selectors";
-import { selectTasks } from "state/selectors/tasks.selectors";
-import { selectTodolists } from "state/selectors/todos.selectors";
+import { selectIsLoggedIn } from "featchers/auth/auth.selectors";
+import { selectTasks } from "featchers/todolists/todolist/tasks.selectors";
+import { selectTodolists } from "featchers/todolists/todos.selectors";
+import { TaskStatuses } from "enums";
+import { taskThunk } from "featchers/todolists/todolist/tasks-reducer";
 
-export const TodoLists = memo(() => {
+export const Todolists = memo(() => {
   const todolists = useSelector(selectTodolists);
   const tasks = useSelector(selectTasks);
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -38,7 +34,7 @@ export const TodoLists = memo(() => {
     } else {
       dispatch(fetchTodolistsTC());
     }
-  }, [isLoggedIn, navigate]);
+  }, [dispatch, isLoggedIn, navigate]);
 
 
 
@@ -51,7 +47,7 @@ export const TodoLists = memo(() => {
 
   const removeTask = useCallback(
     function (id: string, todoListId: string) {
-      dispatch(removeTaskTC(id, todoListId));
+      dispatch(taskThunk.removeTask({id, todolistId: todoListId}));
     },
     [dispatch],
   );
@@ -65,7 +61,7 @@ export const TodoLists = memo(() => {
 
   const addTask = useCallback(
     (title: string, todoListId: string) => {
-      dispatch(addTaskTC(title, todoListId));
+      dispatch(taskThunk.addTask({title, todolistId: todoListId}));
     },
     [dispatch],
   );
@@ -78,22 +74,22 @@ export const TodoLists = memo(() => {
   );
 
   const changeStatus = useCallback(
-    function (id: string, status: TaskStatuses, todolistId: string) {
-      dispatch(updateTaskTC(id, { status }, todolistId));
+    function (taskId: string, status: TaskStatuses, todolistId: string) {
+      dispatch(taskThunk.updateTask({ taskId, domainModel: { status }, todolistId }));
     },
     [dispatch],
   );
 
   const changeTaskTitle = useCallback(
-    function (id: string, newTitle: string, todolistId: string) {
-      dispatch(updateTaskTC(id, { title: newTitle }, todolistId));
+    function (taskId: string, title: string, todolistId: string) {
+      dispatch(taskThunk.updateTask({ taskId, domainModel: { title }, todolistId }));
     },
     [dispatch],
   );
 
   const changeFilter = useCallback(
     (todoListId: string, filter: FilterValuesType) => {
-      dispatch(todolistsActions.changeTodolistFilter({id: todoListId, filter}));
+      dispatch(todolistsActions.changeTodolistFilter({ id: todoListId, filter }));
     },
     [dispatch],
   );

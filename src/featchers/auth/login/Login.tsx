@@ -8,11 +8,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
-import { useAppDispatch } from "state/store/store";
+import { useAppDispatch } from "app/store";
 import { LoginParamsType } from "api/todolistApi";
 import { useNavigate } from "react-router-dom";
-import { loginTC } from "state/thunks/authThunk";
-import { selectIsLoggedIn } from "state/selectors/auth.selectors";
+import { loginTC } from "featchers/auth/auth-thunk";
+import { selectIsLoggedIn } from "featchers/auth/auth.selectors";
 import { useSelector } from "react-redux";
 
 export const Login = () => {
@@ -66,10 +66,7 @@ export const Login = () => {
               <FormLabel>
                 <p>
                   To log in get registered{" "}
-                  <a
-                    href={"https://social-network.samuraijs.com/"}
-                    target={"_blank"}
-                  >
+                  <a href={"https://social-network.samuraijs.com/"} target="_blank" rel="noreferrer">
                     here
                   </a>
                 </p>
@@ -78,6 +75,7 @@ export const Login = () => {
                 <p>Password: free</p>
               </FormLabel>
               <FormGroup>
+
                 <TextField
                   label={"Email"}
                   margin={"normal"}

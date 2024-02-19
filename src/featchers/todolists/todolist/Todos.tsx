@@ -2,14 +2,15 @@ import React, { memo, useCallback } from "react";
 import { Delete } from "@mui/icons-material";
 import { EditableSpan } from "components/editableSpan/EditableSpan";
 import { AddItemForm } from "components/addItemForm/AddItemForm";
-import { Task } from "./Task";
+import { Task } from "featchers/todolists/todolist/tasks/Task";
 import { IconButton } from "@mui/material";
 import { ButtonContainer } from "components/buttons/ButtonContainer";
-import { TaskStatuses, TaskType } from "api/todolistApi";
+import { TaskType } from "api/todolistApi";
 import {
   FilterValuesType,
   TodolistDomainType,
-} from "state/reducers/todos-reducer";
+} from "featchers/todolists/todos-reducer";
+import { TaskStatuses } from "enums";
 
 type PropsType = {
   todolist: TodolistDomainType;
@@ -56,12 +57,11 @@ export const Todos = memo(function (props: PropsType) {
 
   const onActiveClickHandler = useCallback(
     () => props.changeFilter(props.todolist.id, "active"),
-    [props.changeFilter, props.todolist.id],
+    [],
   );
-
   const onCompletedClickHandler = useCallback(
     () => props.changeFilter(props.todolist.id, "completed"),
-    [props.changeFilter, props.todolist.id],
+    []
   );
 
   let tasksForTodolist = props.tasks;

@@ -1,12 +1,12 @@
-import { tasksReducer } from "state/reducers/tasks-reducer";
+import { tasksReducer } from "featchers/todolists/todolist/tasks-reducer";
 import {
   todosReducer,
-} from "state/reducers/todos-reducer";
+} from "featchers/todolists/todos-reducer";
 
 import  { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { useDispatch } from "react-redux";
-import { appReducer } from "state/reducers/app-reducer";
-import { authReducer } from "state/reducers/auth-reducer";
+import { appReducer } from "app/app-reducer";
+import { authReducer } from "featchers/auth/auth-reducer";
 import { configureStore, UnknownAction } from "@reduxjs/toolkit";
 
 export const store = configureStore({reducer:{

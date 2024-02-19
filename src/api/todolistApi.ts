@@ -1,39 +1,41 @@
 import { AxiosResponse } from "axios";
-import { instance } from "api/utils/instance";
+import { commonTs } from "api/common.ts.";
+import {ResponseType} from "types/common.types"
+import { TaskPriorities, TaskStatuses } from "enums";
 
 
 export const todolistApi = {
   getTodolists() {
-    return instance.get<TodolistType[]>("todo-lists");
+    return commonTs.get<TodolistType[]>("todo-lists");
   },
 
   addTodolist(title: string) {
-    return instance.post<ResponseType<{ item: TodolistType }>>("todo-lists", {
+    return commonTs.post<ResponseType<{ item: TodolistType }>>("todo-lists", {
       title,
     });
   },
 
   updateTodolist(id: string, title: string) {
-    return instance.put<TodolistType[]>(`todo-lists/${id}`, { title });
+    return commonTs.put<TodolistType[]>(`todo-lists/${id}`, { title });
   },
 
   removeTodolist(todolistId: string) {
-    return instance.delete<ResponseType>(`todo-lists/${todolistId}`);
+    return commonTs.delete<ResponseType>(`todo-lists/${todolistId}`);
   },
 
   getTasks(todoListId: string) {
-    return instance.get<TasksResponseType>(`todo-lists/${todoListId}/tasks`);
+    return commonTs.get<TasksResponseType>(`todo-lists/${todoListId}/tasks`);
   },
 
   addTask(title: string, todoListId: string) {
-    return instance.post<ResponseType<{ item: TaskType }>>(
+    return commonTs.post<ResponseType<{ item: TaskType }>>(
       `todo-lists/${todoListId}/tasks`,
       { title },
     );
   },
 
   updateTask(todolistId: string, taskId: string, model: UpdateTaskType) {
-    return instance.put<
+    return commonTs.put<
       ResponseType<{ item: TaskType }>,
       AxiosResponse<ResponseType<{ item: TaskType }>>,
       UpdateTaskType
@@ -41,7 +43,7 @@ export const todolistApi = {
   },
 
   removeTask(taskId: string, todolistId: string) {
-    return instance.delete<ResponseType>(
+    return commonTs.delete<ResponseType>(
       `todo-lists/${todolistId}/tasks/${taskId}`,
     );
   },
@@ -54,27 +56,9 @@ export type TodolistType = {
   order: number;
 };
 
-export type ResponseType<D = {}> = {
-  resultCode: number;
-  messages: Array<string>;
-  fieldsErrors: Array<string>;
-  data: D;
-};
 
-export enum TaskStatuses {
-  New,
-  InProgress = 1,
-  Completed,
-  Draft,
-}
 
-export enum TaskPriorities {
-  Low,
-  Middle,
-  Hi,
-  Urgently,
-  later,
-}
+
 
 export type TaskType = {
   description: string;

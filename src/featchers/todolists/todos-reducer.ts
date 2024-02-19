@@ -1,5 +1,5 @@
 import { TodolistType } from "api/todolistApi";
-import { RequestStatusType } from "state/reducers/app-reducer";
+import { RequestStatusType } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
@@ -44,6 +44,9 @@ const slice = createSlice({
     }
   },
 })
+
+
+
 
 export const todosReducer = slice.reducer;
 export const todolistsActions = slice.actions;

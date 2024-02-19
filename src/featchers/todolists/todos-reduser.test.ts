@@ -2,7 +2,7 @@ import {
   todosReducer,
   FilterValuesType,
   TodolistDomainType, todolistsActions
-} from "state/reducers/todos-reducer";
+} from "featchers/todolists/todos-reducer";
 
 
 const state: Array<TodolistDomainType> = [
