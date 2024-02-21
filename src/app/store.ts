@@ -2,7 +2,6 @@ import { tasksReducer } from "featchers/todolists/todolist/tasks-reducer";
 import {
   todosReducer,
 } from "featchers/todolists/todos-reducer";
-
 import  { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { appReducer } from "app/app-reducer";
 import { authReducer } from "featchers/auth/auth-reducer";
