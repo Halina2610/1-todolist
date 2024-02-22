@@ -28,7 +28,7 @@ export const Todolist = memo(() => {
     } else {
       dispatch(todosActions.fetchTodos());
     }
-  }, []);
+  }, [navigate, isLoggedIn]);
 
 
   const removeTodolist = useCallback(

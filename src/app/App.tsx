@@ -6,10 +6,10 @@ import { Login } from "featchers/auth/login/Login";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Error404 } from "featchers/error404/error404";
 import { CircularProgress } from "@mui/material";
-import { initializeAppTC } from "featchers/auth/auth-thunk";
 import { useSelector } from "react-redux";
 import { selectIsInitialized } from "app/app.selectors";
 import { useAppDispatch } from "hooks/useAppDispatch";
+import { authActions } from "featchers/auth/auth-reducer";
 
 export const App = memo(() => {
 
@@ -17,8 +17,8 @@ export const App = memo(() => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(initializeAppTC());
-  }, [dispatch]);
+    dispatch( authActions.initializedApp());
+  }, [dispatch, isInitialized]);
 
   if (!isInitialized) {
     return (

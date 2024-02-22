@@ -10,10 +10,10 @@ import { useFormik } from "formik";
 import Checkbox from "@mui/material/Checkbox/Checkbox";
 import { LoginParamsType } from "api/todolistApi";
 import { useNavigate } from "react-router-dom";
-import { loginTC } from "featchers/auth/auth-thunk";
 import { selectIsLoggedIn } from "featchers/auth/auth.selectors";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "hooks/useAppDispatch";
+import { authActions } from "featchers/auth/auth-reducer";
 
 export const Login = () => {
 
@@ -53,7 +53,7 @@ export const Login = () => {
     },
     onSubmit: (values) => {
       formik.resetForm();
-      dispatch(loginTC(values));
+      dispatch(authActions.login(values))
     },
   });
 
