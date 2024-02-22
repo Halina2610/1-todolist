@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from "react";
 import "./App.css";
 import { Header } from "featchers/header/Header";
-import { Todolists } from "featchers/todolists/Todolists";
+import { Todolist } from "featchers/todolists/Todolist";
 import { Login } from "featchers/auth/login/Login";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Error404 } from "featchers/error404/error404";
@@ -40,7 +40,7 @@ export const App = memo(() => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Todolists />} />
+          <Route path="/" element={<Todolist />} />
           <Route path="/login" element={<Login />} />
           <Route path="/error404" element={<Error404 />} />
           <Route path="*" element={<Navigate to="/error404" />} />

@@ -15,8 +15,8 @@ import { TaskStatuses } from "enums";
 import { taskActions} from "featchers/todolists/todolist/tasks-reducer";
 import { useAppDispatch } from "hooks/useAppDispatch";
 
-export const Todolists = memo(() => {
-  const todolists = useSelector(selectTodolists);
+export const Todolist = memo(() => {
+  const todo = useSelector(selectTodolists);
   const tasks = useSelector(selectTasks);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
@@ -94,7 +94,7 @@ export const Todolists = memo(() => {
         <AddItemForm addItem={addTodolist} />
       </Grid>
       <Grid container spacing={3}>
-        {todolists.map((tl) => {
+        {todo.map((tl) => {
           return (
             <Grid item key={tl.id}>
               <Paper style={{ paddingTop: "10px" }}>
