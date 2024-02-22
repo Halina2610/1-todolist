@@ -8,7 +8,7 @@ import { taskActions} from "featchers/todolists/todolist/tasks-reducer";
 import { createAppSlice } from "utils/thunk_utils";
 
 
-const slice = createAppSlice({
+const todosSlice = createAppSlice({
   name: "todos",
   initialState: [] as TodolistDomainType[],
   reducers: (creators) => {
@@ -144,8 +144,8 @@ const slice = createAppSlice({
 });
 
 
-export const todosReducer = slice.reducer;
-export const todosActions = slice.actions;
+export const todosReducer = todosSlice.reducer;
+export const todosActions = todosSlice.actions;
 //types
 export type FilterValuesType = "all" | "active" | "completed";
 

@@ -12,7 +12,7 @@ import { selectIsLoggedIn } from "featchers/auth/auth.selectors";
 import { selectTasks } from "featchers/todolists/todolist/tasks.selectors";
 import { selectTodolists } from "featchers/todolists/todos.selectors";
 import { TaskStatuses } from "enums";
-import { taskActions} from "featchers/todolists/todolist/tasks-reducer";
+import { taskActions } from "featchers/todolists/todolist/tasks-reducer";
 import { useAppDispatch } from "hooks/useAppDispatch";
 
 export const Todolist = memo(() => {
@@ -31,61 +31,60 @@ export const Todolist = memo(() => {
   }, []);
 
 
-
   const removeTodolist = useCallback(
     (todoListId: string) => {
       dispatch(todosActions.removeTodos(todoListId));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const removeTask = useCallback(
-    function (id: string, todoListId: string) {
-      dispatch(taskActions.removeTask({id, todolistId: todoListId}));
+    function(id: string, todoListId: string) {
+      dispatch(taskActions.removeTask({ id, todolistId: todoListId }));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const addTodolist = useCallback(
     (title: string) => {
       dispatch(todosActions.addTodos(title));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const addTask = useCallback(
     (title: string, todoListId: string) => {
-      dispatch(taskActions.addTask({title, todolistId: todoListId}));
+      dispatch(taskActions.addTask({ title, todolistId: todoListId }));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const changeTodolistTitle = useCallback(
     (id: string, title: string) => {
-      dispatch(todosActions.updateTodoTitle({id, title}));
+      dispatch(todosActions.updateTodoTitle({ id, title }));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const changeStatus = useCallback(
-    function (taskId: string, status: TaskStatuses, todolistId: string) {
+    function(taskId: string, status: TaskStatuses, todolistId: string) {
       dispatch(taskActions.updateTask({ taskId, domainModel: { status }, todolistId }));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const changeTaskTitle = useCallback(
-    function (taskId: string, title: string, todolistId: string) {
+    function(taskId: string, title: string, todolistId: string) {
       dispatch(taskActions.updateTask({ taskId, domainModel: { title }, todolistId }));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const changeFilter = useCallback(
     (todoListId: string, filter: FilterValuesType) => {
       dispatch(todosActions.changeTodoFilter({ id: todoListId, filter }));
     },
-    [dispatch],
+    [dispatch]
   );
 
   return (
