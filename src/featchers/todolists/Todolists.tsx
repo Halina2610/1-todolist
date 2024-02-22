@@ -12,7 +12,7 @@ import { selectIsLoggedIn } from "featchers/auth/auth.selectors";
 import { selectTasks } from "featchers/todolists/todolist/tasks.selectors";
 import { selectTodolists } from "featchers/todolists/todos.selectors";
 import { TaskStatuses } from "enums";
-import { taskThunk } from "featchers/todolists/todolist/tasks-reducer";
+import { taskActions} from "featchers/todolists/todolist/tasks-reducer";
 import { useAppDispatch } from "hooks/useAppDispatch";
 
 export const Todolists = memo(() => {
@@ -41,7 +41,7 @@ export const Todolists = memo(() => {
 
   const removeTask = useCallback(
     function (id: string, todoListId: string) {
-      dispatch(taskThunk.removeTask({id, todolistId: todoListId}));
+      dispatch(taskActions.removeTask({id, todolistId: todoListId}));
     },
     [dispatch],
   );
@@ -55,7 +55,7 @@ export const Todolists = memo(() => {
 
   const addTask = useCallback(
     (title: string, todoListId: string) => {
-      dispatch(taskThunk.addTask({title, todolistId: todoListId}));
+      dispatch(taskActions.addTask({title, todolistId: todoListId}));
     },
     [dispatch],
   );
@@ -69,14 +69,14 @@ export const Todolists = memo(() => {
 
   const changeStatus = useCallback(
     function (taskId: string, status: TaskStatuses, todolistId: string) {
-      dispatch(taskThunk.updateTask({ taskId, domainModel: { status }, todolistId }));
+      dispatch(taskActions.updateTask({ taskId, domainModel: { status }, todolistId }));
     },
     [dispatch],
   );
 
   const changeTaskTitle = useCallback(
     function (taskId: string, title: string, todolistId: string) {
-      dispatch(taskThunk.updateTask({ taskId, domainModel: { title }, todolistId }));
+      dispatch(taskActions.updateTask({ taskId, domainModel: { title }, todolistId }));
     },
     [dispatch],
   );
