@@ -1,7 +1,7 @@
 import {
   todosReducer,
   FilterValuesType,
-  TodolistDomainType, todosActions, todosThunks
+  TodolistDomainType, todosActions
 } from "featchers/todolists/todos-reducer";
 
 
@@ -33,7 +33,7 @@ describe("todolistReducer", () => {
 
   it("should remove a todolist", () => {
     const todolistId = "1";
-    const action = todosThunks.removeTodolist.fulfilled({ id: todolistId }, "requestId", '');
+    const action = todosActions.removeTodos.fulfilled({ id: todolistId }, "requestId", '');
     const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(1);
@@ -43,7 +43,7 @@ describe("todolistReducer", () => {
   it("should change the title of a todolist", () => {
     const todolistId = "1";
     const newTitle = "Updated Todos";
-    const action = todosThunks.updateTodolistTitle.fulfilled({ id: todolistId, title: newTitle }, 'requestId', { id: todolistId, title: newTitle });
+    const action = todosActions.updateTodoTitle.fulfilled({ id: todolistId, title: newTitle }, 'requestId', { id: todolistId, title: newTitle });
     const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(2);
@@ -53,7 +53,7 @@ describe("todolistReducer", () => {
   it("should change the filter of a todolist", () => {
     const todolistId = "1";
     const newFilter: FilterValuesType = "active";
-    const action = todosActions.changeTodolistFilter({ id: todolistId, filter: newFilter });
+    const action = todosActions.changeTodoFilter({ id: todolistId, filter: newFilter });
     const newState = todosReducer(state, action);
 
     expect(newState.length).toBe(2);
@@ -61,7 +61,7 @@ describe("todolistReducer", () => {
   });
 
   test("todolists should be added", () => {
-    const action = todosThunks.fetchTodolists.fulfilled({ todolists: initialState }, "requestId");
+    const action = todosActions.fetchTodos.fulfilled({ todos: initialState }, "requestId", undefined);
     const endState = todosReducer([], action);
     expect(endState.length).toBe(2);
   })

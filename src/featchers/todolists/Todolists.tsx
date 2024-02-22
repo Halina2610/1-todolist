@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect } from "react";
 import {
-  FilterValuesType, todosActions, todosThunks
+  FilterValuesType, todosActions
 } from "featchers/todolists/todos-reducer";
 import { Container, Grid, Paper } from "@mui/material";
 import { Todos } from "featchers/todolists/todolist/Todos";
@@ -26,7 +26,7 @@ export const Todolists = memo(() => {
     if (!isLoggedIn) {
       navigate("/login");
     } else {
-      dispatch(todosThunks.fetchTodolists());
+      dispatch(todosActions.fetchTodos());
     }
   }, []);
 
@@ -34,7 +34,7 @@ export const Todolists = memo(() => {
 
   const removeTodolist = useCallback(
     (todoListId: string) => {
-      dispatch(todosThunks.removeTodolist(todoListId));
+      dispatch(todosActions.removeTodos(todoListId));
     },
     [dispatch],
   );
@@ -48,7 +48,7 @@ export const Todolists = memo(() => {
 
   const addTodolist = useCallback(
     (title: string) => {
-      dispatch(todosThunks.addTodolist(title));
+      dispatch(todosActions.addTodos(title));
     },
     [dispatch],
   );
@@ -62,7 +62,7 @@ export const Todolists = memo(() => {
 
   const changeTodolistTitle = useCallback(
     (id: string, title: string) => {
-      dispatch(todosThunks.updateTodolistTitle({id, title}));
+      dispatch(todosActions.updateTodoTitle({id, title}));
     },
     [dispatch],
   );
@@ -83,7 +83,7 @@ export const Todolists = memo(() => {
 
   const changeFilter = useCallback(
     (todoListId: string, filter: FilterValuesType) => {
-      dispatch(todosActions.changeTodolistFilter({ id: todoListId, filter }));
+      dispatch(todosActions.changeTodoFilter({ id: todoListId, filter }));
     },
     [dispatch],
   );

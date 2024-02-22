@@ -1,6 +1,6 @@
 import { TaskType, todolistApi, UpdateTaskType } from "api/todolistApi";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { todosThunks } from "featchers/todolists/todos-reducer";
+import { todosActions} from "featchers/todolists/todos-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "utils/thunk_utils";
 import { handleServerNetworkError } from "utils/handle-server-network-error";
@@ -49,14 +49,14 @@ const slice = createSlice({
         }
       })
 
-      .addCase(todosThunks.addTodolist.fulfilled, (state, action) => {
+      .addCase(todosActions.addTodos.fulfilled, (state, action) => {
         state[action.payload.todolist.id] = [];
       })
-      .addCase(todosThunks.removeTodolist.fulfilled, (state, action) => {
+      .addCase(todosActions.removeTodos.fulfilled, (state, action) => {
         delete state[action.payload.id];
       })
-      .addCase(todosThunks.fetchTodolists.fulfilled, (state, action) => {
-        action.payload.todolists.forEach((tl) => {
+      .addCase(todosActions.fetchTodos.fulfilled, (state, action) => {
+        action.payload.todos.forEach((tl) => {
           state[tl.id] = [];
         });
       })
