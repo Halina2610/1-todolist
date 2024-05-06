@@ -1,6 +1,7 @@
 {
-  "name": "1-lesson",
+  "name": "1-todolist",
   "version": "0.1.0",
+  "homepage": "https://Halina2610.github.io/1-todolist",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -37,7 +38,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
