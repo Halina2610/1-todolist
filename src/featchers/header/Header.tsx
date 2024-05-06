@@ -40,7 +40,7 @@ export const Header = memo(() => {
             Todolist
           </Typography>
           {isLoggedIn && (
-            <Button color="inherit" onClick={logoutHandler} >
+            <Button color="inherit" onClick={logoutHandler}>
               Log out
             </Button>
           )}

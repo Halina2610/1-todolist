@@ -42,8 +42,7 @@ export const App = memo(() => {
         <Routes>
           <Route path="/" element={<Todolist />} />
           <Route path="/login" element={<Login />} />
-         <Route path="/error404" element={<Error404 />} />
-          <Route path="*" element={<Navigate to="/error404" />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
     </div>
