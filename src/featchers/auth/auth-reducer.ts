@@ -3,14 +3,13 @@ import { authApi } from "api/authApi";
 import { appActions } from "app/app-reducer";
 import { handleServerNetworkError } from "utils/handle-server-network-error";
 import { LoginParamsType } from "api/todolistApi";
-import { ThunkType } from "app/store";
 import { handleServerAppError } from "utils/handle-server-app-error";
 import { todosActions } from "featchers/todolists/todos-reducer";
 import { taskActions } from "featchers/todolists/todolist/tasks-reducer";
 import { createAppSlice } from "utils/thunk_utils";
 
 
-const slice = createAppSlice({
+const authSlice = createAppSlice({
   name: "auth",
   initialState: {
     isLoggedIn: false
@@ -23,7 +22,7 @@ const slice = createAppSlice({
         state.isLoggedIn = action.payload.isLoggedIn;
       }),
       initializedApp: createAThunk<undefined, undefined>(
-        async (_, { dispatch, rejectWithValue }) => {
+        async (_arg, { dispatch, rejectWithValue }) => {
           try {
             const res = await authApi.me();
             if (res.data.resultCode === 0) {
@@ -34,9 +33,16 @@ const slice = createAppSlice({
             handleServerNetworkError(error, dispatch);
             return rejectWithValue(null);
           }
+        }, {
+          fulfilled: (state) => {
+            state.isLoggedIn = true;
+          },
+          rejected: (state) => {
+            state.isLoggedIn = false
+          }
         }
       ),
-      login: createAThunk<LoginParamsType, any>(
+      login: createAThunk<LoginParamsType, { isLoggedIn: boolean }>(
         async (data, { dispatch, rejectWithValue }) => {
           dispatch(appActions.setAppStatus({ status: "loading" }));
           try {
@@ -67,11 +73,12 @@ const slice = createAppSlice({
             const res = await authApi.logout();
 
             if (res.data.resultCode === 0) {
-              dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
+              /*dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));*/
               dispatch(appActions.setAppStatus({ status: "succeeded" }));
               dispatch(todosActions.clearTodosData());
               dispatch(taskActions.clearTaskData());
-              return rejectWithValue(null);
+
+              return { isLoggedIn: false };
             } else {
               handleServerAppError(res.data, dispatch);
               return rejectWithValue(null);
@@ -91,12 +98,7 @@ const slice = createAppSlice({
   }
 });
 
-export const authReducer = slice.reducer;
-export const authActions = slice.actions;
+export const authReducer = authSlice.reducer;
+export const authActions = authSlice.actions;
 
 
-export const _logoutTC = (): ThunkType => async (dispatch) => {
-  dispatch(appActions.setAppStatus({ status: "loading" }));
-
-
-};
