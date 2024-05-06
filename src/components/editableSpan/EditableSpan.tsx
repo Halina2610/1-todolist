@@ -12,19 +12,12 @@ export const EditableSpan = memo((props: EditableSpanPropsType) => {
   const { editMode, title, changeTitle, activateViewMode, activateEditMode } =
     useEditableSpan(props.value, props.onChange);
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      activateViewMode();
-    }
-  };
-
   return editMode ? (
     <TextField
       value={title}
       onChange={changeTitle}
       autoFocus={true}
       onBlur={activateViewMode}
-      onKeyPress={handleKeyPress}
       id="standard-basic"
       size={"small"}
       color={"success"}
