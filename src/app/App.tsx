@@ -10,9 +10,10 @@ import { useSelector } from "react-redux";
 import { selectIsInitialized } from "app/app.selectors";
 import { useAppDispatch } from "hooks/useAppDispatch";
 import { authActions } from "featchers/auth/auth-reducer";
+import { selectIsLoggedIn } from "featchers/auth/auth.selectors";
 
 export const App = memo(() => {
-
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const isInitialized = useSelector(selectIsInitialized);
   const dispatch = useAppDispatch();
 
@@ -42,8 +43,7 @@ export const App = memo(() => {
         <Routes>
           <Route path="/" element={<Todolist />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/error404" element={<Error404 />} />
-          <Route path="*" element={<Navigate to="/error404" />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
     </div>
